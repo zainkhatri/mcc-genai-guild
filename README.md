@@ -1,5 +1,5 @@
 # Islamic GenAI Guild
-# **MCC * MTC**
+# **MCC & UCSD MTC**
 
 Welcome to the **Islamic GenAI Guild**! This project is all about using AI responsibly to support Islamic knowledge and principles. We're building datasets, grading AI tools, and evaluating how well they handle Islamic topics like the Quran, Hadith, ethics, and more.
 
