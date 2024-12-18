@@ -5,7 +5,7 @@
 **Responsibilities:**
 - Provide overall project guidance and ensure tasks align with the vision.
 - Oversee and support Zain and Fiza in technical challenges.
-- Handle decision-making for technical trade-offs (model endpoints, data formats).
+- Handle decision making for trade-offs (model endpoints, data formats).
 - Collaborate with Zain and Zahir on deploying the leaderboard to Hugging Face Spaces.
 
 ---
@@ -15,7 +15,7 @@
 **Responsibilities:**
 - Work on the **Model Evaluations** task using `lm-evaluation-harness`.
 - Configure benchmarks and metrics like Accuracy, F1 Score, and Exact Match.
-- Collaborate with Fiza and Zahir to streamline technical tasks.  
+- Collaborate with Fiza and Zahir to integrate technical tasks.  
 - Work with Atif and Zahir on deploying the leaderboard to Hugging Face Spaces.  
 **Key Deliverables:**
 - Evaluation results for each model (GPT-4, o1, Claude, llama 3.1, Gemini 2.0).
@@ -96,8 +96,8 @@
 ---
 
 ## Notes
-- **Atif** will supervise all tasks and provide guidance to Zain, Fiza, and Zahir.  
+- **Atif** will supervise all tasks and provide guidance to all.  
 - **Zain** and **Fiza** focus on core technical tasks, with **Zahir** assisting.  
 - **Mohsin** contributes to both dataset work and leaderboard generation.  
 - **Zayd** and **Sabeel** focus on marketing and documentation efforts.  
-- Weekly check-ins will ensure progress and resolve challenges collaboratively.
+- Weekly checkins on Monday's at 6:30pm (check your Google Calendar) will ensure progress and resolve challenges.
