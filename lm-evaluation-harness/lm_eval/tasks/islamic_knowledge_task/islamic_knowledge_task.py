@@ -1,12 +1,11 @@
-# lm_eval/tasks/islamic_knowledge_task.py
-
 from lm_eval.base import Task
 from lm_eval.metrics import mean, accuracy
 import json
+import jsonlines
 
 class IslamicKnowledgeTask(Task):
     VERSION = 0
-    DATASET_PATH = "data/q_and_a.jsonl"
+    DATASET_PATH = "data/islamic_knowledge.jsonl"
     DATASET_NAME = None
 
     def __init__(self):
@@ -14,8 +13,16 @@ class IslamicKnowledgeTask(Task):
         self.data = self._load_data()
 
     def _load_data(self):
-        with open(self.DATASET_PATH, 'r') as f:
-            return [json.loads(line) for line in f]
+        # Read JSONL file
+        data = []
+        with jsonlines.open(self.DATASET_PATH) as reader:
+            for obj in reader:
+                # Process options into a list
+                obj['options'] = [opt.strip() for opt in obj['options'].split(',')]
+                data.append(obj)
+                
+        print(f"Loaded {len(data)} questions from JSONL file")
+        return data
 
     def has_training_docs(self):
         return False
@@ -27,28 +34,26 @@ class IslamicKnowledgeTask(Task):
         return False
 
     def training_docs(self):
-        return []  # No training docs
+        return []
 
     def validation_docs(self):
         return self.data
 
     def test_docs(self):
-        return []  # No test docs
+        return []
 
     def doc_to_text(self, doc):
-        # Convert document to input text format
-        return doc["question"]
+        # Format the question with multiple choice options
+        options_text = '\n'.join(f"{chr(65 + i)}. {opt}" for i, opt in enumerate(doc['options']))
+        return f"{doc['question']}\n\n{options_text}"
 
     def doc_to_target(self, doc):
-        # Return expected answer
-        return doc["answer"]
+        return doc['correct']
 
     def construct_requests(self, doc, ctx):
-        # Construct model request from document
         return [{"request_type": "generate_until", "request_args": {"stop": ["\n"]}}]
 
     def process_results(self, doc, results):
-        # Process model outputs and compare with targets
         pred = results[0].strip()
         true = self.doc_to_target(doc)
         return {"accuracy": float(pred == true)}
