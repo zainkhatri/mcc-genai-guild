@@ -10,7 +10,7 @@ from . import (
     nemo_lm,
     neuralmagic,
     neuron_optimum,
-    openai_completions,
+    openai_completions,  # Only need this once
     optimum_ipex,
     optimum_lm,
     textsynth,
@@ -18,9 +18,7 @@ from . import (
     vllm_vlms,
 )
 
-
 # TODO: implement __all__
-
 
 try:
     # enable hf hub transfer if available
