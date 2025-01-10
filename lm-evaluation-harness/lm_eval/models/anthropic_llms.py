@@ -288,10 +288,38 @@ class AnthropicChat(LocalCompletionsAPI):
             "Chat completions does not support batching. Defaulting to batch size 1."
         )
         self._batch_size = 1
-        self.anthropic_version = "2023-06-01"
+        self.anthropic_version = kwargs.get('anthropic_api_version', '2023-06-01')
         eval_logger.warning(
             f"Using Anthropic Version: {self.anthropic_version}. Confirm the current version here: https://docs.anthropic.com/en/api/versioning"
         )
+
+    def _create_payload(
+        self,
+        messages: List[Dict],
+        generate=True,
+        gen_kwargs: dict = None,
+        **kwargs,
+    ) -> dict:
+        system = (
+            messages[0].get("content") if messages[0].get("role") == "system" else None
+        )
+        if system:
+            messages = messages[1:]
+        
+        gen_kwargs = gen_kwargs or {}
+        gen_kwargs.pop("do_sample", False)
+        max_tokens = gen_kwargs.pop("max_tokens", self._max_gen_toks)
+        temperature = gen_kwargs.pop("temperature", 0)
+        
+        out = {
+            "messages": messages,
+            "model": self.model,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+        }
+        if system:
+            out["system"] = system
+        return out
 
     @cached_property
     def api_key(self):
@@ -309,38 +337,7 @@ class AnthropicChat(LocalCompletionsAPI):
             "x-api-key": f"{self.api_key}",
             "anthropic-version": self.anthropic_version,
         }
-
-    def _create_payload(
-        self,
-        messages: List[Dict],
-        generate=True,
-        gen_kwargs: dict = None,
-        eos="\n\nHuman:",
-        **kwargs,
-    ) -> dict:
-        system = (
-            messages[0].get("content") if messages[0].get("role") == "system" else None
-        )
-        if system:
-            messages = messages[1:]
-        gen_kwargs.pop("do_sample", False)
-        max_tokens = gen_kwargs.pop("max_gen_toks", self._max_gen_toks)
-        temperature = gen_kwargs.pop("temperature", 0)
-        stop = handle_stop_sequences(gen_kwargs.pop("until", ["\n\nHuman:"]), eos=eos)
-        if not isinstance(stop, list):
-            stop = [stop]
-        out = {
-            "messages": messages,
-            "model": self.model,
-            "max_tokens": max_tokens,
-            "temperature": temperature,
-            "stop_sequences": stop,
-            **gen_kwargs,
-        }
-        if system:
-            out["system"] = system
-        return out
-
+    
     def parse_generations(
         self, outputs: Union[Dict, List[Dict]], **kwargs
     ) -> List[str]:

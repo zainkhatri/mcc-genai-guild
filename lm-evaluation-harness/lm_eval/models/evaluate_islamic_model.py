@@ -1,7 +1,7 @@
-from lm_eval import evaluator
 import json
 import os
 from dotenv import load_dotenv
+from lm_eval import evaluator
 import lm_eval.tasks
 from lm_eval.tasks.islamic_knowledge_task.islamic_knowledge_task import IslamicKnowledgeTask
 
@@ -12,8 +12,8 @@ def main():
     # Load environment variables
     load_dotenv()
 
-    # Get API key
-    openai_key = os.getenv('OPENAI_API_KEY')
+    # Get Anthropic API key
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
 
     # Register task
     lm_eval.tasks.TASK_REGISTRY["islamic_knowledge"] = IslamicKnowledgeTaskModified
@@ -22,46 +22,54 @@ def main():
     all_results = []
 
     try:
-        if openai_key:
-            # Test GPT-4
-            print("Evaluating GPT-4...")
-            gpt4_results = evaluator.simple_evaluate(
-                model="openai-chat-completions",
+        if anthropic_key:
+            # Test Claude 2.1
+            print("Evaluating Claude 2.1...")
+            claude_2_results = evaluator.simple_evaluate(
+                model="anthropic-chat",
                 model_args={
-                    "model": "gpt-4",
-                    "api_key": openai_key,
+                    "model": "claude-2.1",
+                    "api_key": anthropic_key,
                     "temperature": 0,
                     "max_tokens": 1,
-                    "eos_token": "\n",
-                    "chat_format": "chatml"
+                    "system_message": (
+                        "You are taking an Islamic knowledge test. "
+                        "For each question, respond with only a single letter (A, B, C, or D)."
+                    ),
+                    "anthropic_api_version": "2023-06-01"
                 },
                 tasks=["islamic_knowledge"],
                 num_fewshot=2,
                 limit=50,
                 apply_chat_template=True,
-                batch_size=1,
+                batch_size=1
             )
-            all_results.append({"model": "GPT-4", "results": gpt4_results})
+            all_results.append({"model": "Claude 2.1", "results": claude_2_results})
 
-            # Test GPT-3.5
-            print("Evaluating GPT-3.5...")
-            gpt35_results = evaluator.simple_evaluate(
-                model="openai-chat-completions",
+            # Test Claude 3
+            print("\nEvaluating Claude 3...")
+            claude_3_results = evaluator.simple_evaluate(
+                model="anthropic-chat",
                 model_args={
-                    "model": "gpt-3.5-turbo",
-                    "api_key": openai_key,
+                    "model": "claude-3-opus-20240229",
+                    "api_key": anthropic_key,
                     "temperature": 0,
                     "max_tokens": 1,
-                    "eos_token": "\n",
-                    "chat_format": "chatml"
+                    "system_message": (
+                        "You are taking an Islamic knowledge test. "
+                        "For each question, respond with only a single letter (A, B, C, or D)."
+                    ),
+                    "anthropic_api_version": "2023-06-01"
                 },
                 tasks=["islamic_knowledge"],
                 num_fewshot=2,
                 limit=50,
                 apply_chat_template=True,
-                batch_size=1,
+                batch_size=1
             )
-            all_results.append({"model": "GPT-3.5", "results": gpt35_results})
+            all_results.append({"model": "Claude 3", "results": claude_3_results})
+        else:
+            print("No ANTHROPIC_API_KEY found in environment variables")
 
     except Exception as e:
         print(f"Error during evaluation: {str(e)}")
