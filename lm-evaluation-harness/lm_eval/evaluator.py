@@ -5,6 +5,7 @@ import random
 import time
 from collections import defaultdict
 from typing import TYPE_CHECKING, List, Optional, Union
+from lm_eval.models.openai_completions import OpenAIChatCompletion as OpenAIModel
 
 import numpy as np
 import torch

@@ -1,0 +1,3 @@
+task: islamic_knowledge
+class: lm_eval.tasks.islamic_knowledge_task.islamic_knowledge_task.IslamicKnowledgeTask
+output_type: multiple_choice
