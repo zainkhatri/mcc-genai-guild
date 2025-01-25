@@ -1,4 +1,4 @@
-# Model Evaluations Build Log
+# Initial Model Evaluations Build Log
 
 ## We're Using a Virtual Environment (venv)
 

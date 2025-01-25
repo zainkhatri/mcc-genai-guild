@@ -34,4 +34,4 @@ We used the **lm-evaluation-harness** framework to ensure consistency and reprod
 
 This comparative study demonstrates that modern large language models can achieve high accuracy on specialized Islamic Knowledge questions, with **Gemini 1.5 Pro** and **GPT-4 O1** leading the pack. However, results can vary widely depending on the maturity and fine-tuning of each model. 
 
-By sharing these findings, we aim to empower the community to select the best models for Islamic educational and research purposes and to continue improving them through further fine-tuning.
+By sharing these findings, we aim to empower the community to select the best models for Islamic educational and research purposes and to continue improving them through further fine-tuning.gi

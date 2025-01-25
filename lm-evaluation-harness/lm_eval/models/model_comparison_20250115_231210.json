@@ -1,0 +1,559 @@
+[
+  {
+    "model": "Claude 3 Sonnet",
+    "provider": "Anthropic",
+    "results": {
+      "results": {
+        "islamic_knowledge": {
+          "alias": "islamic_knowledge",
+          "accuracy,none": 0.9,
+          "accuracy_stderr,none": "N/A"
+        }
+      },
+      "group_subtasks": {
+        "islamic_knowledge": []
+      },
+      "configs": {
+        "islamic_knowledge": {
+          "description": "",
+          "target_delimiter": " ",
+          "fewshot_delimiter": "\n\n",
+          "num_fewshot": 1,
+          "output_type": "generate_until",
+          "generation_kwargs": {
+            "until": [
+              "\n\n"
+            ],
+            "do_sample": false
+          },
+          "repeats": 1,
+          "should_decontaminate": false
+        }
+      },
+      "versions": {
+        "islamic_knowledge": 0
+      },
+      "n-shot": {
+        "islamic_knowledge": 1
+      },
+      "higher_is_better": {
+        "islamic_knowledge": {
+          "accuracy": true
+        }
+      },
+      "n-samples": {
+        "islamic_knowledge": {
+          "original": 300,
+          "effective": 10
+        }
+      },
+      "samples": {
+        "islamic_knowledge": [
+          {
+            "doc_id": 0,
+            "doc": {
+              "category": "Tajweed",
+              "question": "Which of the following letters is not one of the letters of ithhaar? ",
+              "options": [
+                "hamza",
+                "haa",
+                "ayn",
+                "qaaf",
+                "khaa"
+              ],
+              "correct": "qaaf",
+              "language": "en"
+            },
+            "target": "D",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "E"
+              ]
+            ],
+            "filtered_resps": [
+              "E"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "7cdce742603c6bf071ef0bc4b6bac91f4ae0fe693de06b5572426ff2a9272137",
+            "prompt_hash": "11d9fcc827f921b7f3a303045caf2b0528bafb268336478639e4847050ef411b",
+            "target_hash": "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43",
+            "accuracy": 0.0
+          },
+          {
+            "doc_id": 1,
+            "doc": {
+              "category": "Tajweed",
+              "question": "How many harakahs of madd if a long vowel is followed by a letter with a shaddah? ",
+              "options": [
+                "2",
+                "3",
+                "4",
+                "6"
+              ],
+              "correct": "6",
+              "language": "en"
+            },
+            "target": "D",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: How many harakahs of madd if a long vowel is followed by a letter with a shaddah? \\n\\nChoices:\\nA. 2\\nB. 3\\nC. 4\\nD. 6\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "D"
+              ]
+            ],
+            "filtered_resps": [
+              "D"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "4329bc0be688ac32295eff83c6aa3e6e992627e30f1bd24a98ceb0a1875ca925",
+            "prompt_hash": "98c7435b915d8319660513456ad49beef4bcefe4e7b9bbe2c41d542ef122a102",
+            "target_hash": "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 2,
+            "doc": {
+              "category": "Tajweed",
+              "question": "Which of the following letters is not one of the letters of qalqalah?",
+              "options": [
+                "qaaf",
+                "baa",
+                "thaa",
+                "jeem"
+              ],
+              "correct": "thaa",
+              "language": "en"
+            },
+            "target": "C",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of qalqalah?\\n\\nChoices:\\nA. qaaf\\nB. baa\\nC. thaa\\nD. jeem\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "C"
+              ]
+            ],
+            "filtered_resps": [
+              "C"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "ef893b84e2f1fa0abd3359bebcdf37466f4a110db7afeef6196366e09c35d7de",
+            "prompt_hash": "054de97b882fbcf64de5da5b4e1db9319adab104348d5f835d27843450117fc8",
+            "target_hash": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 3,
+            "doc": {
+              "category": "Tajweed",
+              "question": "Which of the following letters is not one of the letters of idghaam after noon? ",
+              "options": [
+                "yaa",
+                "meem",
+                "laam",
+                "faa"
+              ],
+              "correct": "faa",
+              "language": "en"
+            },
+            "target": "D",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of idghaam after noon? \\n\\nChoices:\\nA. yaa\\nB. meem\\nC. laam\\nD. faa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "D"
+              ]
+            ],
+            "filtered_resps": [
+              "D"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "131e083dfef51d280365ca91cbc54a95c4163c7947551b53ed3dfa318b559d82",
+            "prompt_hash": "0c4c38f1e024e5e17c9fda6bf94b4cfaeb6495793d079bce9b60e694e649b8ce",
+            "target_hash": "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 4,
+            "doc": {
+              "category": "Fiqh",
+              "question": "What is the status of men wearing gold in Islam if there's no reason? ",
+              "options": [
+                "Prohibited",
+                "Disliked",
+                "Permitted",
+                "Encouraged",
+                "Obligatory"
+              ],
+              "correct": "Prohibited",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: What is the status of men wearing gold in Islam if there's no reason? \\n\\nChoices:\\nA. Prohibited\\nB. Disliked\\nC. Permitted\\nD. Encouraged\\nE. Obligatory\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "922e594eaeda3a70cdd34fd54255a0ed54c5137b8d618411fb676a0fc421c8d5",
+            "prompt_hash": "22296b6ec6a3c36e8f16e86471b22e5e6ed12f84d3f86356dede3131b850c2de",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 5,
+            "doc": {
+              "category": "Fiqh",
+              "question": "What is the status of men wearing silk in Islam if there's no reason? ",
+              "options": [
+                "Prohibited",
+                "Disliked",
+                "Permitted",
+                "Encouraged",
+                "Obligatory"
+              ],
+              "correct": "Prohibited",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: What is the status of men wearing silk in Islam if there's no reason? \\n\\nChoices:\\nA. Prohibited\\nB. Disliked\\nC. Permitted\\nD. Encouraged\\nE. Obligatory\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "afed52ea69e4e1efaa2f2018a92768a851b003eb8d046e15587746a911c5ae38",
+            "prompt_hash": "b76a629cbd8f7f4cd2568a06b30f5b228c46ebf83490dd736c119ee069835f41",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 6,
+            "doc": {
+              "category": "Modern Issues",
+              "question": "What is Islam's stance on homosexual acts?",
+              "options": [
+                "Prohibited",
+                "Disliked",
+                "Permitted",
+                "Encouraged",
+                "Obligatory"
+              ],
+              "correct": "Prohibited",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: What is Islam's stance on homosexual acts?\\n\\nChoices:\\nA. Prohibited\\nB. Disliked\\nC. Permitted\\nD. Encouraged\\nE. Obligatory\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "03d859ae4522416f437204f8e99967d77aa2848327dce9ac5a43e58962bfb40d",
+            "prompt_hash": "2028f9c8383106a29195b51ab0d7f12230b34d6eb4b60956d03b9f1b70cf9732",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 7,
+            "doc": {
+              "category": "Modern Issues",
+              "question": "What is islam's stance on premarital sex?",
+              "options": [
+                "Prohibited",
+                "Disliked",
+                "Permitted",
+                "Encouraged",
+                "Obligatory"
+              ],
+              "correct": "Prohibited",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: What is islam's stance on premarital sex?\\n\\nChoices:\\nA. Prohibited\\nB. Disliked\\nC. Permitted\\nD. Encouraged\\nE. Obligatory\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "e1421c48d49d7e67f20ff5b009dec72e1dde196a9d8cfcca86d0dc0fa0f90907",
+            "prompt_hash": "b5139d62cd8fe0ac331dcdd7743f936c40b3f2491538be3612423798867765f0",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 8,
+            "doc": {
+              "category": "Modern Issues",
+              "question": "What is Islam's stance on non-spot transactions exchanging gold and silver?",
+              "options": [
+                "Prohibited",
+                "Disliked",
+                "Permitted",
+                "Encouraged",
+                "Obligatory"
+              ],
+              "correct": "Prohibited",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: What is Islam's stance on non-spot transactions exchanging gold and silver?\\n\\nChoices:\\nA. Prohibited\\nB. Disliked\\nC. Permitted\\nD. Encouraged\\nE. Obligatory\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "facd78107c48d64388d1b9c9392de0a5eb2b3cec4f5de180af3bd6a5da640166",
+            "prompt_hash": "32f673e764f0b140f5f9cfd7d897f4fa082ec4200cde4be44ec51e904652aff2",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          },
+          {
+            "doc_id": 9,
+            "doc": {
+              "category": "Fiqh",
+              "question": "Which madhab delays the start of Asr prayer compared to others?",
+              "options": [
+                "Hanafi",
+                "Shafi",
+                "Hanbali",
+                "Maliki"
+              ],
+              "correct": "Hanafi",
+              "language": "en"
+            },
+            "target": "A",
+            "arguments": [
+              [
+                [
+                  "[{\"role\": \"system\", \"content\": \"You are a knowledgeable assistant for Islamic topics. You will be given multiple choice questions. Respond with ONLY a single letter (A, B, C, or D) as your answer. Do not include any other text, explanation, or punctuation.\"}, {\"role\": \"user\", \"content\": \"Question: Which of the following letters is not one of the letters of ithhaar? \\n\\nChoices:\\nA. hamza\\nB. haa\\nC. ayn\\nD. qaaf\\nE. khaa\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}, {\"role\": \"assistant\", \"content\": \"D\"}, {\"role\": \"user\", \"content\": \"Question: Which madhab delays the start of Asr prayer compared to others?\\n\\nChoices:\\nA. Hanafi\\nB. Shafi\\nC. Hanbali\\nD. Maliki\\n\\nProvide only a single letter (A, B, C, or D) as your answer:\"}]"
+                ],
+                {
+                  "until": [
+                    "\n",
+                    ".",
+                    " "
+                  ],
+                  "max_tokens": 1
+                }
+              ]
+            ],
+            "resps": [
+              [
+                "A"
+              ]
+            ],
+            "filtered_resps": [
+              "A"
+            ],
+            "filter": "none",
+            "metrics": [
+              "accuracy"
+            ],
+            "doc_hash": "a9ca8eb1615747e7b440a4348025cc122a8d20ae8432aaac2581011aef0b9d0e",
+            "prompt_hash": "335f91b6837ac79709c50a3e0d27baf16c33626f8f698832fe52a37033a1759d",
+            "target_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "config": {
+        "model": "anthropic-chat",
+        "model_args": {
+          "model": "claude-3-sonnet-20240229",
+          "api_key": "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",
+          "temperature": 0,
+          "max_tokens": 1,
+          "system_message": "You are taking an Islamic knowledge test. For each question, respond with only a single letter (A, B, C, or D).",
+          "anthropic_api_version": "2023-06-01"
+        },
+        "batch_size": 1,
+        "batch_sizes": [],
+        "device": null,
+        "use_cache": null,
+        "limit": 10,
+        "bootstrap_iters": 100000,
+        "gen_kwargs": null,
+        "random_seed": 0,
+        "numpy_seed": 1234,
+        "torch_seed": 1234,
+        "fewshot_seed": 1234
+      },
+      "git_hash": "275c69e",
+      "date": 1737011521.806603,
+      "pretty_env_info": "PyTorch version: 2.7.0.dev20250106\nIs debug build: False\nCUDA used to build PyTorch: None\nROCM used to build PyTorch: N/A\n\nOS: macOS 14.6 (arm64)\nGCC version: Could not collect\nClang version: 16.0.0 (clang-1600.0.26.4)\nCMake version: Could not collect\nLibc version: N/A\n\nPython version: 3.10.16 (main, Dec  3 2024, 17:27:57) [Clang 16.0.0 (clang-1600.0.26.4)] (64-bit runtime)\nPython platform: macOS-14.6-arm64-arm-64bit\nIs CUDA available: False\nCUDA runtime version: No CUDA\nCUDA_MODULE_LOADING set to: N/A\nGPU models and configuration: No CUDA\nNvidia driver version: No CUDA\ncuDNN version: No CUDA\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: True\n\nCPU:\nApple M3\n\nVersions of relevant libraries:\n[pip3] numpy==2.2.1\n[pip3] torch==2.7.0.dev20250106\n[pip3] torchaudio==2.6.0.dev20250106\n[pip3] torchvision==0.22.0.dev20250106\n[conda] numpy                     1.26.4                   pypi_0    pypi\n[conda] optree                    0.13.1                   pypi_0    pypi",
+      "transformers_version": "4.47.1",
+      "upper_git_hash": null
+    }
+  }
+]
