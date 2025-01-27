@@ -9,16 +9,22 @@ We used the **lm-evaluation-harness** framework to ensure consistency and reprod
 ## Evaluation Results
 
 | **Model Name**               | **Accuracy** | **Grade** |
-|------------------------------|--------------|-----------|
-| Gemini 1.5 Pro               | 96.00%       | A         |
-| GPT-4 O1                     | 94.00%       | A         |
-| GPT-4 Turbo                  | 92.00%       | A-        |
-| GPT-4                        | 92.00%       | A-        |
-| Claude 3 Opus                | 92.00%       | A-        |
-| Gemini 1.5 Flash             | 84.00%       | B         |
-| Claude 3 Sonnet              | 76.00%       | C         |
-| Claude 2.1                   | 72.00%       | C-        |
-| Gemini 2.0 Flash (Beta)      | 28.00%       | F         |
+|------------------------------|-------------|-----------|
+| Gemini 1.5 Pro               | 96.00%      | A         |
+| GPT-4 O1                     | 94.00%      | A         |
+| GPT-4o                       | 94.00%      | A         |
+| GPT-4 Turbo                  | 92.00%      | A-        |
+| GPT-4                        | 92.00%      | A-        |
+| Claude 3 Opus                | 92.00%      | A-        |
+| Claude 3.5 Opus              | 92.00%      | A-        |
+| Gemini 1.5 Flash             | 84.00%      | B         |
+| Claude 3 Sonnet              | 76.00%      | C         |
+| Claude 3.5 Sonnet            | 76.00%      | C         |
+| Claude 2.1                   | 72.00%      | C-        |
+| Zephyr-7B Beta (7B)          | 43.70%      | F         |
+| microsoft/phi-2 (2.7B)       | 37.33%      | F         |
+| Gemini 2.0 Flash (Beta)      | 28.00%      | F         |
+| StableLM-2 Zephyr (1.6B)     | 24.33%      | F         |
 
 
 ## Highlights and Observations

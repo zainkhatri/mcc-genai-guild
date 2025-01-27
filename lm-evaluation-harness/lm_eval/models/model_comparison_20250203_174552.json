@@ -1,0 +1,7 @@
+[
+  {
+    "model": "microsoft/phi-2",
+    "accuracy": 37.333333333333336,
+    "grade": "F"
+  }
+]

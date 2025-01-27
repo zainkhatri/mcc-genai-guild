@@ -10,7 +10,7 @@
 {"category": "Fiqh", "question": "Which madhab delays the start of Asr prayer compared to others?", "options": "Hanafi, Shafi, Hanbali, Maliki", "correct": "Hanafi", "language": "en"}
 {"category": "Theology", "question": "What type of creation is Iblees or Satan?", "options": "Human, Angel, Jinn, other", "correct": "Jinn", "language": "en"}
 {"category": "Islamic History", "question": "What year was Muhammad born?", "options": "570 BCE, 570 CE, 203 CE, 1492 CE", "correct": "570 CE", "language": "en"}
-{"category": "Islamic History", "question": "What is the name of the year that was given to the year Muhammad was born?", "options": "Year of the Horse, Year of the Elephant, Year of the Tiger, Year of the Snake", "correct": "Year of the Elephant", "language": "en"}
+{"category": "Islamic History", "question": "What is the name of the year that was given to the year Muhammad was born?", "options": "Year of ls -l q_and_a.jsonlthe Horse, Year of the Elephant, Year of the Tiger, Year of the Snake", "correct": "Year of the Elephant", "language": "en"}
 {"category": "Islamic History", "question": "What was the name of Muhammad's first wife?", "options": "Khadijah, Aisha, Sawda, Zainab", "correct": "Khadijah", "language": "en"}
 {"category": "Fiqh", "question": "Which prayer has an odd number of Rakahs?", "options": "Fajr, Thuhr, Asr, Maghrib, Isha", "correct": "Maghrib", "language": "en"}
 {"category": "Fiqh", "question": "A man without parents, spouse but with 2 boys and 3 girls dies. He has $70,000 of assets in his will. How much does each girl get?", "options": "Nothing, $5000, $10000, $14000, $20000", "correct": "$10000.00", "language": "en"}

@@ -1,0 +1,36 @@
+{
+  "model": "microsoft/phi-2",
+  "accuracy": 0.0,
+  "results": [
+    {
+      "question": "Which of the following letters is not one of the letters of ithhaar? ",
+      "expected": "",
+      "generated": "A. A\nB. B\nC. C\nD. D\n\nAnswer: D. D\n\nExercise 2:\nWhat is the purpose of ithhaar? \nA. To help people find their way\nB. To make sure people are safe\nC. To make sure people are happy\nD. To make sure people are healthy\n\nAnswer: B. To make sure people are safe\n\nExercise 3:\nImagine you are lost in",
+      "correct": false
+    },
+    {
+      "question": "How many harakahs of madd if a long vowel is followed by a letter with a shaddah? ",
+      "expected": "",
+      "generated": "Answer: One.\n\nExercise: What is the difference between a long vowel and a short vowel? \nAnswer: A long vowel is pronounced for a longer duration, while a short vowel is pronounced for a shorter duration.\n\nExercise: How many harakahs of madd are there in the word \"khalifa\"? \nAnswer: Two.\n\nExercise: What is the purpose of the harakah of madd? \nAnswer: It",
+      "correct": false
+    },
+    {
+      "question": "Which of the following letters is not one of the letters of qalqalah?",
+      "expected": "",
+      "generated": "A) Q\nB) A\nC) L\nD) Z\n\nAnswer: D) Z\n\nExercise 2:\nWhat is the meaning of qalqalah?\nA) A type of food\nB) A type of music\nC) A type of dance\nD) A type of language\n\nAnswer: B) A type of music\n\nExercise 3:\nWhich of the following is NOT a type of qalqalah",
+      "correct": false
+    },
+    {
+      "question": "Which of the following letters is not one of the letters of idghaam after noon? ",
+      "expected": "",
+      "generated": "A. A\nB. B\nC. C\nD. D\n\nSolution 0: The correct option is D. D\n\nExplanation: Idghaam is the name of the fifth letter of the Arabic alphabet, which is derived from the Phoenician letter dalet. The other letters of idghaam are A, B, C, and D. Noon is the time of day when the sun is at its highest point in the sky, and it is",
+      "correct": false
+    },
+    {
+      "question": "What is the status of men wearing gold in Islam if there's no reason? ",
+      "expected": "",
+      "generated": "Answer: It is not explicitly forbidden, but it is not recommended.\n\nExercise:\nWhat is the significance of wearing gold in Islam? \nAnswer: It is seen as a symbol of wealth and status, but it is not considered a religious obligation.\n\nExercise:\nWhat is the difference between wearing gold and wearing other expensive materials in Islam? \nAnswer: Gold is seen as a symbol of wealth and status, while other expensive materials may be seen as a",
+      "correct": false
+    }
+  ]
+}
