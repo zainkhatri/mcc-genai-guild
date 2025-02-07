@@ -19,26 +19,25 @@ def main():
         ("microsoft/phi-1", "Phi-1"),
         ("microsoft/phi-1_5", "Phi-1.5"),
         ("microsoft/phi-1-small", "Phi-1-small"),
-        ("microsoft/phi-1_5-small", "Phi-1.5-small"),
-        ("microsoft/phi-4", "Phi-4")
+        ("microsoft/phi-1_5-small", "Phi-1.5-small")
     ]
     
     for model_id, model_name in phi_models:
         print(f"\nEvaluating {model_name}...")
+        
+        # Model configuration without system_message
+        model_args = {
+            "pretrained": model_id,
+            "device": "cuda",
+            "dtype": "bfloat16",
+            "trust_remote_code": True,
+            "max_length": 2048,
+            "use_fast_tokenizer": True
+        }
+        
         results = evaluator.simple_evaluate(
-            model="hf",  # Use the Hugging Face model interface
-            model_args={
-                "pretrained": model_id,
-                "device": "cuda",  # Use GPU if available
-                "dtype": "bfloat16",  # Use bfloat16 for Phi-4 compatibility
-                "trust_remote_code": True,
-                "max_length": 2048,
-                "use_fast_tokenizer": True,
-                "system_message": (
-                    "You are taking an Islamic knowledge test. "
-                    "For each question, respond with only a single letter (A, B, C, or D)."
-                ),
-            },
+            model="hf",
+            model_args=model_args,
             tasks=["islamic_knowledge"],
             num_fewshot=2,
             limit=50,
