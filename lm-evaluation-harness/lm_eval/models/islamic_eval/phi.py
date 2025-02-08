@@ -1,16 +1,13 @@
 import json
 import os
 from datetime import datetime
-from lm_eval import evaluator
+from lm_eval import evaluator, utils
 import lm_eval.tasks
 from lm_eval.tasks.islamic_knowledge_task.islamic_knowledge_task import IslamicKnowledgeTask
-
-class IslamicKnowledgeTaskModified(IslamicKnowledgeTask):
-    DATASET_PATH = "data/q_and_a.jsonl"
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
 def main():
-    # Register our modified task
-    lm_eval.tasks.TASK_REGISTRY["islamic_knowledge"] = IslamicKnowledgeTaskModified
+    print("\nEvaluating Phi models...")
     
     all_results = []
 
@@ -25,23 +22,29 @@ def main():
     for model_id, model_name in phi_models:
         print(f"\nEvaluating {model_name}...")
         
-        # Model configuration without system_message
-        model_args = {
-            "pretrained": model_id,
-            "device": "cuda",
-            "dtype": "bfloat16",
-            "trust_remote_code": True,
-            "max_length": 2048,
-            "use_fast_tokenizer": True
-        }
-        
         results = evaluator.simple_evaluate(
             model="hf",
-            model_args=model_args,
+            model_args={
+                "pretrained": model_id,
+                "device": "cuda",
+                "dtype": "bfloat16",
+                "trust_remote_code": True,
+                "use_fast_tokenizer": True,
+                "tokenizer_kwargs": {"padding_side": "left"},
+                "config_kwargs": {"pad_token_id": 0}
+            },
             tasks=["islamic_knowledge"],
             num_fewshot=2,
             limit=50,
-            batch_size=1
+            batch_size=1,
+            no_cache=True,
+            generation_kwargs={
+                "max_new_tokens": 10,
+                "do_sample": False,
+                "num_beams": 1,
+                "pad_token_id": 0,
+                "eos_token_id": None
+            }
         )
         
         all_results.append({
