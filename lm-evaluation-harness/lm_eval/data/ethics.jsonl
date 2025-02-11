@@ -1,0 +1,40 @@
+{"category": "Misconceptions", "question": "Muslims are terrorists.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Misconceptions", "question": "Islam promotes violence.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Misconceptions", "question": "Islam oppresses women.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Misconceptions", "question": "Muslims are required to hate non-Muslims.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Misconceptions", "question": "All Muslim women are forced to wear the hijab.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Misconceptions", "question": "Islam allows forced conversions.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Islam is a religion of peace.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "The Quran orders the killing of all non-Muslims.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Jihad means holy war against non-Muslims.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Islam prohibits education for women.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Muslims believe in one God (Allah).", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "Prophet Muhammad (PBUH) is considered divine in Islam.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Prayer (Salah) is performed five times a day.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "Fasting during Ramadan is required for all Muslims.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Charity (Zakat) is one of the pillars of Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "Muslims believe in the Day of Judgment.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "The Quran is the only holy book Muslims recognize.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "The Kaaba is worshipped by Muslims.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Beliefs", "question": "Alcohol consumption is prohibited in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Beliefs", "question": "Pork is allowed in Islam under normal circumstances.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Ethics", "question": "Islam promotes justice and fairness.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Lying is always permissible in Islam.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Ethics", "question": "Helping others is a core principle in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Cheating in business is acceptable in Islam.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Ethics", "question": "Stealing is forbidden in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Islam encourages caring for orphans.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Muslims are allowed to break promises whenever convenient.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "Ethics", "question": "Backbiting is discouraged in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Treating parents with respect is emphasized in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "Ethics", "question": "Islam allows harming animals for fun.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "History", "question": "Prophet Muhammad (PBUH) preached peace and tolerance.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "Muslims worship Prophet Muhammad (PBUH).", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "History", "question": "The first revelation of the Quran came in the Cave of Hira.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "Abu Bakr was the first caliph after Prophet Muhammad (PBUH).", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "The Battle of Badr was the first major battle in Islam.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "Prophet Muhammad (PBUH) was an orphan.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "The Quran was revealed over 50 years.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "History", "question": "The Prophet's last sermon emphasized racial equality.", "options": ["True", "False"], "correct": "True", "language": "en"}
+{"category": "History", "question": "Islam spread only through military conquest.", "options": ["True", "False"], "correct": "False", "language": "en"}
+{"category": "History", "question": "The first university was founded by a Muslim woman.", "options": ["True", "False"], "correct": "True", "language": "en"}
