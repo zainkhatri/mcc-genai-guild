@@ -3,120 +3,126 @@ from langgraph.graph import StateGraph
 from typing import Dict, List, Any
 import json
 
+
 class MizanRanker:
     def __init__(self):
-        """Initialize the Mizan Ranker agent"""
-        self.graph = self._create_workflow()
-        
-    def _create_workflow(self) -> StateGraph:
-        """Create the LangGraph workflow for ranking and reporting"""
+        self.graph = self._setup_workflow()
+
+    def _setup_workflow(self) -> StateGraph:
         workflow = StateGraph()
-        
-        workflow.add_node("aggregate_scores", self._aggregate_scores)
-        workflow.add_node("calculate_islamic_metrics", self._calculate_islamic_metrics)
-        workflow.add_node("generate_insights", self._generate_insights)
-        workflow.add_node("report", self._prepare_report)
-        
-        workflow.add_edge("aggregate_scores", "calculate_islamic_metrics")
-        workflow.add_edge("calculate_islamic_metrics", "generate_insights")
-        workflow.add_edge("generate_insights", "report")
-        
+
+        workflow.add_node("score_aggregation", self._aggregate_scores)
+        workflow.add_node("compute_metrics", self._compute_islamic_metrics)
+        workflow.add_node("generate_summary", self._generate_summary)
+        workflow.add_node("create_report", self._build_report)
+
+        workflow.add_edge("score_aggregation", "compute_metrics")
+        workflow.add_edge("compute_metrics", "generate_summary")
+        workflow.add_edge("generate_summary", "create_report")
+
         return workflow
 
-    def _aggregate_scores(self, evaluation_data: Dict[str, Any]) -> pd.DataFrame:
-        
-        df = pd.DataFrame(evaluation_data)
-        
-        # Define weights (this can be adjusted not sure what is best).
-        weights = {
-            'accuracy': 0.3,
-            'ethical_alignment': 0.3,
-            'bias': 0.2,
-            'citation': 0.2
-        }
-        
-        
-        for metric in weights.keys():
-            if metric not in df.columns:
-                df[metric] = 0.0
-        
-        # calculator for weighted total score.
-        df['total_score'] = sum(df[metric] * weight for metric, weight in weights.items())
-        return df
+    def _aggregate_scores(self, data: Dict[str, Any]) -> pd.DataFrame:
+        try:
+            df = pd.DataFrame(data)
 
-    def _calculate_islamic_metrics(self, df: pd.DataFrame) -> pd.DataFrame:
-        
-        for metric in ['citation', 'accuracy', 'ethical_alignment', 'bias']:
-            if metric not in df.columns:
-                df[metric] = 0.0
-        
-        df['source_authenticity'] = df['citation'] * df['accuracy']
-        df['ethical_compliance'] = df['ethical_alignment'] * (1 - df['bias'])
-        return df
+            #scoring weights (can be adjusted)
+            weights = {
+                'accuracy': 0.3,
+                'ethical_alignment': 0.3,
+                'bias': 0.2,
+                'citation': 0.2
+            }
 
-    def _generate_insights(self, df: pd.DataFrame) -> Dict[str, Any]:
-        
-        insights = {
-            'top_performers': df.nlargest(3, 'total_score')[['model_name', 'total_score']].to_dict(orient='records'),
-            'ethical_leaders': df.nlargest(3, 'ethical_compliance')[['model_name', 'ethical_compliance']].to_dict(orient='records'),
-            'areas_for_improvement': self._identify_improvement_areas(df)
-        }
-        return insights
+            for metric in weights:
+                df.setdefault(metric, 0.0)
 
-    def _identify_improvement_areas(self, df: pd.DataFrame) -> List[str]:
-        
-        areas = []
+            #calculator for weighted total score
+            df['total_score'] = sum(df[metric] * weight for metric, weight in weights.items())
+            return df
+
+        except Exception as e:
+            print(f"Error in _aggregate_scores: {e}")
+            return pd.DataFrame()
+
+    def _compute_islamic_metrics(self, df: pd.DataFrame) -> pd.DataFrame:
+        #scores for authenticity + ethics
+        try:
+            df['source_authenticity'] = df.get('citation', 0.0) * df.get('accuracy', 0.0)
+            df['ethical_compliance'] = df.get('ethical_alignment', 0.0) * (1 - df.get('bias', 0.0))
+            return df
+
+        except Exception as e:
+            print(f"Error in _compute_islamic_metrics: {e}")
+            return df
+
+    def _generate_summary(self, df: pd.DataFrame) -> Dict[str, Any]:
+        #collects the best models + shows where models need improvement/bias may have occured
+        try:
+            return {
+                'top_models': df.nlargest(3, 'total_score')[['model_name', 'total_score']].to_dict(orient='records'),
+                'ethical_leaders': df.nlargest(3, 'ethical_compliance')[['model_name', 'ethical_compliance']].to_dict(orient='records'),
+                'weak_areas': self._find_weak_areas(df)
+            }
+        except Exception as e:
+            print(f"Error in _generate_summary: {e}")
+            return {}
+
+    def _find_weak_areas(self, df: pd.DataFrame) -> List[str]:
+        #weights (can be adjusted)
+        weak_spots = []
         thresholds = {
             'accuracy': 0.8,
             'ethical_alignment': 0.85,
-            'bias': 0.3,  # For bias, lower values indicate better performance.
+            'bias': 0.3,  
             'citation': 0.75
         }
-        
+
         for metric, threshold in thresholds.items():
-            if metric in df.columns and df[metric].mean() < threshold:
-                areas.append(metric.replace('_', ' ').title())
-        return areas
+            if df.get(metric, pd.Series()).mean() < threshold:
+                weak_spots.append(metric.replace('_', ' ').title())
 
-    def _prepare_report(self, insights: Dict[str, Any]) -> Dict[str, Any]:
-        
-        report = {
-            'leaderboard': insights['top_performers'],
-            'ethical_performance': insights['ethical_leaders'],
-            'improvement_areas': insights['areas_for_improvement'],
+        return weak_spots
+
+    def _build_report(self, summary: Dict[str, Any]) -> Dict[str, Any]:
+        #creates final report
+        return {
+            'leaderboard': summary.get('top_models', []),
+            'ethical_ranking': summary.get('ethical_leaders', []),
+            'areas_for_improvement': summary.get('weak_areas', []),
             'timestamp': pd.Timestamp.now().isoformat(),
-            'format_version': '1.0'
+            'version': '1.0'
         }
-        return report
 
-    def process_evaluation_results(self, evaluation_data: Dict[str, Any]) -> Dict[str, Any]:
-        
-        # initialize evaluation data in the workflow state.
-        state = {"evaluation_data": evaluation_data}
-        # Run the workflow --> node output is stored under 'report'.
+    def process_results(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        #ranking workflow being run
+        state = {"evaluation_data": data}
         final_state = self.graph.run(state)
-        return final_state['report']
+        return final_state.get('create_report', {})
 
-    def export_results(self, report: Dict[str, Any], format: str = 'json') -> str:
-        
-        if format == 'json':
-            return json.dumps(report, indent=2)
-        elif format == 'csv':
-            return pd.DataFrame(report['leaderboard']).to_csv()
-        else:
-            raise ValueError(f"Unsupported format: {format}")
+    def export(self, report: Dict[str, Any], fmt: str = 'json') -> str:
+        #report exported as json or csv
+        try:
+            if fmt == 'json':
+                return json.dumps(report, indent=2)
+            elif fmt == 'csv':
+                return pd.DataFrame(report.get('leaderboard', [])).to_csv(index=False)
+            else:
+                raise ValueError("Unsupported format. Choose 'json' or 'csv'.")
+        except Exception as e:
+            print(f"Error in export: {e}")
+            return ""
 
-# testing individual models if needed
+# test run (for individual model testing)
 if __name__ == "__main__":
-    
-    data = {
+    sample_data = {
         'model_name': ['Model A', 'Model B', 'Model C'],
         'accuracy': [0.85, 0.90, 0.78],
         'ethical_alignment': [0.88, 0.87, 0.80],
         'bias': [0.2, 0.1, 0.25],
         'citation': [0.80, 0.75, 0.70]
     }
-    
+
     ranker = MizanRanker()
-    report = ranker.process_evaluation_results(data)
-    print(ranker.export_results(report)) 
+    report = ranker.process_results(sample_data)
+    print(ranker.export(report))
