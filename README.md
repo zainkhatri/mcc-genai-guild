@@ -10,29 +10,29 @@ The **Islamic LLM Evaluation Project** benchmarks AI language models on Islamic 
 
 ```plaintext
 mcc-genai-guild/
-├── .env                   # API keys (excluded from Git)
+├── .env                    # API keys (excluded from Git)
 ├── .gitignore             # Lists .env, venv, etc.
 ├── README.md              # This documentation
 └── lm-evaluation-harness/
-   ├── venv/                  # Virtual environment
-   ├── lm_eval/
-   │   ├── data/
-   │   │   ├── islamic_knowledge.jsonl   # Islamic Q&A dataset
-   │   │   ├── ethics.jsonl              # Ethical evaluation dataset
-   │   ├── models/
-   │   │   ├── A-TEAM/Agent 2/  # Adl Evaluator code
-   │   │   ├── A-TEAM/Agent 3/  # MizanRanker code
-   │   │   ├── openai_completions.py
-   │   │   ├── google_palm.py
-   │   │   ├── huggingface.py
-   │   │   ├── evaluate_islamic_model.py  # Core script running evaluations
-   │   ├── tasks/
-   │   │   ├── islamic_knowledge_task/
-   │   │   │   ├── init.py
-   │   │   │   ├── islamic_knowledge_task.py  # Custom task for LLM evaluation
-   │   │   │   └── old/
-   │   │   └── (other tasks)
-   │   └── (other framework code)
+    ├── venv/              # Virtual environment
+    ├── lm_eval/
+    │   ├── data/
+    │   │   ├── islamic_knowledge.jsonl   # Islamic Q&A dataset
+    │   │   └── ethics.jsonl              # Ethical evaluation dataset
+    │   ├── models/
+    │   │   ├── A-TEAM/
+    │   │   │   ├── Agent 2/             # Adl Evaluator code
+    │   │   │   └── Agent 3/             # MizanRanker code
+    │   │   ├── openai_completions.py
+    │   │   ├── google_palm.py
+    │   │   ├── huggingface.py
+    │   │   └── evaluate_islamic_model.py # Core script running evaluations
+    │   └── tasks/
+    │       ├── islamic_knowledge_task/
+    │       │   ├── __init__.py
+    │       │   ├── islamic_knowledge_task.py  # Custom task for LLM evaluation
+    │       │   └── old/
+    │       └── (other tasks)
 ```
 
 ---
@@ -41,7 +41,7 @@ mcc-genai-guild/
 
 The `lm-evaluation-harness` is a framework used for **standardized AI model evaluation**. It defines **tasks** (datasets and scoring logic) and connects them to **models** (GPT-4, Claude, Gemini, etc.).
 
-- **Tasks**: Define **what** is being tested (e.g., “Islamic Knowledge Q&A”).
+- **Tasks**: Define **what** is being tested (e.g., "Islamic Knowledge Q&A").
 - **Models**: Define **who** is being evaluated (e.g., GPT-4, Claude, Gemini).
 
 ### How it Works
