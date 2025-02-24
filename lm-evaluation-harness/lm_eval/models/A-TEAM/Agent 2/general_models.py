@@ -78,7 +78,8 @@ def get_models_config(eval_mode: str = "all") -> Dict:
         # OpenAI models
         "gpt-4-0125-preview": openai_base.copy(),
         "gpt-4-turbo-preview": openai_base.copy(),
-        "gpt-4": openai_base.copy()
+        "gpt-4": openai_base.copy(),
+        "gpt-4o-2024-11-20": openai_base.copy()
     }
 
 async def evaluate_models_in_batches(adl: ADLGraph, questions: List[Dict], models_config: Dict) -> Dict:

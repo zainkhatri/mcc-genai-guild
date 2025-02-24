@@ -3,13 +3,19 @@
   "models_evaluated": [
     "gpt-4-0125-preview",
     "gpt-4-turbo-preview",
-    "gpt-4"
+    "gpt-4",
+    "gpt-4o-2024-11-20",
   ],
   "summary_metrics": {
     "gpt-4-0125-preview": {
       "knowledge_accuracy": 0.9633333333333334,
       "ethics_accuracy": 1.0,
       "timestamp": "2025-02-24T00:58:47.788091"
+    },
+    "gpt-4o-2024-11-20": {
+      "knowledge_accuracy": 0.9833333333333333,
+      "ethics_accuracy": 0.975,
+      "timestamp": "2025-02-24T03:52:47.799880"
     },
     "gpt-4-turbo-preview": {
       "knowledge_accuracy": 0.96,
@@ -18,7 +24,7 @@
     },
     "gpt-4": {
       "knowledge_accuracy": 0.9366666666666666,
-      "ethics_accuracy": 0.075,
+      "ethics_accuracy": 0.97,
       "timestamp": "2025-02-24T00:58:47.788486"
     }
   }

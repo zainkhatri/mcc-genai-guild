@@ -51,7 +51,8 @@ class ADLEvaluator(LLM):
         Validate that the API key is set based on model name.
         """
         model_name = values.get("model_name", "")
-        if model_name.startswith("gpt"):
+        if (model_name.startswith("gpt") or 
+            model_name.endswith("-preview")):
             api_key = get_from_dict_or_env(values, "api_key", "OPENAI_API_KEY")
         elif model_name.startswith("claude"):
             api_key = get_from_dict_or_env(values, "api_key", "ANTHROPIC_API_KEY")
