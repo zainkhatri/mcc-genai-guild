@@ -35,6 +35,15 @@ mcc-genai-guild/
     │       ├── islamic_knowledge_task/
     │       │   ├── __init__.py
     │       │   ├── islamic_knowledge_task.py  # Task definition for loading, prompting, and scoring Islamic knowledge 
+    │       │   └── results/
+    │       │       ├── rankings_*.json
+    │       │       └── leaderboard_*.csv
+    │       └── results/
+    │           ├── rankings_*.json
+    │           └── leaderboard_*.csv
+    └── results/
+        ├── rankings_*.json
+        └── leaderboard_*.csv
 ```
 
 ---
@@ -205,5 +214,51 @@ Additionally, if you add a new evaluation task (or benchmark) please:
 
 - **Error Handling:**  
   Review logged errors (e.g., KeyError during metric extraction) and check that API responses conform to expected formats.
+
+---
+
+## Output Files
+MizanRanker generates two types of output in the `results` directory:
+1. Detailed JSON rankings (`rankings_[timestamp].json`)
+2. CSV format for leaderboard (`leaderboard_[timestamp].csv`)
+
+## Output Structure
+The rankings include:
+- Overall leaderboard with scores and grades
+- Category-specific rankings
+- Performance statistics by model category
+- Detailed analysis of knowledge and ethics metrics
+- Key observations about model performance
+
+## Integration
+- Processes evaluation results from Agent 2 (ADL Evaluator)
+- Supports the main evaluation harness workflow
+- Generates data for Hugging Face Spaces leaderboard
+- Provides insights for model improvement
+
+## Dependencies
+- pandas: Data processing and analysis
+- langgraph: Workflow management
+- pydantic: Data validation
+- Python 3.8+
+
+## Error Handling
+- Validates Agent 2 results before processing
+- Provides clear error messages for missing data
+- Ensures data consistency across metrics
+- Handles missing or incomplete evaluations
+
+## Directory Structure
+
+```
+Agent 3/
+├── mizan_ranker.py    # Main implementation
+├── README.md          # This documentation
+└── results/           # Generated rankings and reports
+    ├── rankings_*.json
+    └── leaderboard_*.csv
+```
+
+This README now accurately reflects the implemented features and usage instructions for Agent 3 (MizanRanker). Let me know if you need any clarification or additional sections!
 
 ---

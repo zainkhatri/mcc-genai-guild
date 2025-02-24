@@ -10,6 +10,10 @@ import json
 from typing import List, Dict, Any
 from dotenv import load_dotenv
 from adl import create_evaluator
+import asyncio
+from adl_graph import ADLGraph
+from pathlib import Path
+from general_models import evaluate_models_in_batches
 
 def load_questions(knowledge_path: str, ethics_path: str) -> List[Dict[str, Any]]:
     """
@@ -33,45 +37,82 @@ def load_questions(knowledge_path: str, ethics_path: str) -> List[Dict[str, Any]
                 questions.append(q)
     return questions
 
-def main():
-    load_dotenv()
+async def load_questions() -> List[Dict[str, Any]]:
+    """Load questions from data files"""
+    try:
+        data_dir = Path(__file__).parent.parent.parent.parent / "data"
+        questions = []
+        
+        # Load knowledge questions
+        knowledge_path = data_dir / "islamic_knowledge.jsonl"
+        if knowledge_path.exists():
+            with open(knowledge_path) as f:
+                for line in f:
+                    question = json.loads(line)
+                    question["category"] = "knowledge"
+                    questions.append(question)
+        
+        # Load ethics questions
+        ethics_path = data_dir / "ethics.jsonl"
+        if ethics_path.exists():
+            with open(ethics_path) as f:
+                for line in f:
+                    question = json.loads(line)
+                    question["category"] = "ethics"
+                    questions.append(question)
+                    
+        if not questions:
+            print("No questions loaded.")
+            return []
+            
+        print(f"Loaded {len(questions)} questions")
+        return questions
+        
+    except Exception as e:
+        print(f"Error loading questions: {e}")
+        return []
 
-    # Example model configs
-    model_configs = [
-        {
-            "model_name": "gpt-4",
-            "api_key": os.getenv("OPENAI_API_KEY"),
-            "temperature": 0,
-            "max_tokens": 1,
-            "system_message": "You are an Islamic knowledge evaluator. Provide concise, accurate answers."
-        },
-        {
-            "model_name": "claude-3-sonnet-20240229",
-            "api_key": os.getenv("ANTHROPIC_API_KEY"),
-            "temperature": 0,
-            "max_tokens": 1,
-            "system_message": "You are an Islamic knowledge evaluator. Provide concise, accurate answers."
-        }
-    ]
-
+async def main():
+    """Main evaluation function"""
     # Load questions
-    questions = load_questions("data/q_and_a.jsonl", "data/ethics.jsonl")
+    questions = await load_questions()
     if not questions:
-        print("No questions loaded.")
         return
+    
+    # Configure models to evaluate
+    models_config = {
+        "gpt-4": {
+            "temperature": 0.0,
+            "max_tokens": 150
+        },
+        "claude-3-opus": {
+            "temperature": 0.0,
+            "max_tokens": 150
+        },
+        "gemini-pro": {
+            "temperature": 0.0,
+            "max_tokens": 150
+        }
+    }
+    
+    try:
+        # Run evaluation
+        print("\nStarting evaluation...")
+        results = await evaluate_models_in_batches(ADLGraph(models_config), questions, models_config)
+        
+        # Save results
+        results_dir = Path(__file__).parent / "results"
+        results_dir.mkdir(exist_ok=True)
+        
+        results_path = results_dir / "evaluation_results.json"
+        with open(results_path, "w") as f:
+            json.dump(results, f, indent=2)
+            
+        print(f"\nResults saved to: {results_path}")
+        
+    except Exception as e:
+        print(f"Error in evaluation: {e}")
 
-    # Evaluate each model
-    for config in model_configs:
-        model_name = config.pop("model_name")
-        print(f"\nEvaluating {model_name} with direct batch_evaluate (no graph)...")
-        evaluator = create_evaluator(model_name, **config)
-
-        # For demonstration, limit to first 5 questions
-        limited_questions = questions[:5]
-
-        results = evaluator.batch_evaluate(limited_questions)
-        accuracy = sum(r["correct"] for r in results) / len(results)
-        print(f"{model_name} accuracy on first 5: {accuracy:.2%}")
-
-if name == "main":
-    main()
+if __name__ == "__main__":
+    # Run evaluation
+    asyncio.run(main())
