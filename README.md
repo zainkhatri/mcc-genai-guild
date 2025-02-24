@@ -26,24 +26,23 @@ mcc-genai-guild/
     │   ├── models/
     │   │   ├── A-TEAM/
     │   │   │   ├── Agent 2/             # ADL Evaluator: Asynchronous evaluation pipeline that orchestrates multi-LLM testing
+    │   │   │   │   ├── adl_graph.py
+    │   │   │   │   ├── general_models.py
+    │   │   │   │   └── main_eval.py
     │   │   │   └── Agent 3/             # MizanRanker: Aggregates and ranks model performance using weighted metrics
-    │   │   ├── openai_completions.py     # Wrapper for interfacing with OpenAI completions API
-    │   │   ├── google_palm.py            # Integration for testing Google PaLM models via the Cloud AI Platform
-    │   │   ├── huggingface.py            # Support for evaluating HuggingFace models
-    │   │   └── evaluate_islamic_model.py  # Core script for running Islamic knowledge tests across different models
+    │   │   │       ├── mizan_ranker.py
+    │   │   │       ├── README.md
+    │   │   │       └── results/         # All evaluation results stored here
+    │   │   │           ├── rankings_*.json
+    │   │   │           └── leaderboard_*.csv
+    │   │   ├── openai_completions.py    # Wrapper for interfacing with OpenAI completions API
+    │   │   ├── google_palm.py           # Integration for testing Google PaLM models via the Cloud AI Platform
+    │   │   ├── huggingface.py           # Support for evaluating HuggingFace models
+    │   │   └── evaluate_islamic_model.py # Core script for running Islamic knowledge tests across different models
     │   └── tasks/
-    │       ├── islamic_knowledge_task/
-    │       │   ├── __init__.py
-    │       │   ├── islamic_knowledge_task.py  # Task definition for loading, prompting, and scoring Islamic knowledge 
-    │       │   └── results/
-    │       │       ├── rankings_*.json
-    │       │       └── leaderboard_*.csv
-    │       └── results/
-    │           ├── rankings_*.json
-    │           └── leaderboard_*.csv
-    └── results/
-        ├── rankings_*.json
-        └── leaderboard_*.csv
+    │       └── islamic_knowledge_task/
+    │           ├── __init__.py
+    │           └── islamic_knowledge_task.py  # Task definition for loading, prompting, and scoring Islamic knowledge
 ```
 
 ---
@@ -218,7 +217,7 @@ Additionally, if you add a new evaluation task (or benchmark) please:
 ---
 
 ## Output Files
-MizanRanker generates two types of output in the `results` directory:
+MizanRanker generates two types of output in its `results` directory:
 1. Detailed JSON rankings (`rankings_[timestamp].json`)
 2. CSV format for leaderboard (`leaderboard_[timestamp].csv`)
 
