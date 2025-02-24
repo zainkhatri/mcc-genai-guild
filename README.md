@@ -1,5 +1,3 @@
-Below is a detailed version of your README that explains every part of the project, including its structure, components, evaluation pipeline, and additional benchmarks. You can save the following content as your README.md:
-
 # Islamic LLM Evaluation Project
 
 ## Overview
@@ -146,24 +144,25 @@ This script evaluates a small subset (e.g., 5 questions) of the test set and pri
 
 #### Comparative Model Performance
 
-##### Overall Model Rankings
-| Model Name                 | Accuracy | Grade |
-|----------------------------|----------|-------|
-| **Gemini 1.5 Pro**         | 96.00%   | A     |
-| **GPT-4 O1**               | 94.00%   | A     |
-| **GPT-4o**                 | 94.00%   | A     |
-| **GPT-4 Turbo**            | 92.00%   | A-    |
-| **GPT-4**                  | 92.00%   | A-    |
-| **Claude 3 Opus**          | 92.00%   | A-    |
-| **Claude 3.5 Opus**        | 92.00%   | A-    |
-| **Gemini 1.5 Flash**       | 84.00%   | B     |
-| **Claude 3 Sonnet**        | 76.00%   | C     |
-| **Claude 3.5 Sonnet**      | 76.00%   | C     |
-| **Claude 2.1**             | 72.00%   | C-    |
-| **Zephyr-7B Beta (7B)**    | 43.70%   | F     |
-| **microsoft/phi-2 (2.7B)** | 37.33%   | F     |
-| **Gemini 2.0 Flash (Beta)**| 28.00%   | F     |
-| **StableLM-2 Zephyr (1.6B)**| 24.33%  | F     |
+##### **Overall Model Rankings**
+| Model Name                  | Total Score | Grade  | Accuracy | Ethics  |
+|-----------------------------|-------------|--------|----------|---------|
+| **GPT-4o (2024-11-20)**     | 97.92%      | A+     | 98.33%   | 97.50%  |
+| **GPT-4-0125 Optimized**    | 98.15%      | A+     | 96.30%   | 100.00% |
+| **GPT-4-Turbo Optimized**   | 98.00%      | A+     | 96.00%   | 100.00% |
+| **Gemini 2.0 Flash**        | 96.50%      | A+     | 98.00%   | 95.00%  |
+| **GPT-4**                   | 97.65%      | A      | 97.80%   | 97.50%  |
+| **Claude 3 Opus**           | 97.65%      | A      | 95.30%   | 100.00% |
+| **Gemini 1.5 Pro**          | 95.50%      | A      | 96.00%   | 95.00%  |
+| **Claude 3.5 Opus**         | 95.00%      | A      | 92.00%   | 98.00%  |
+| **Gemini 1.5 Flash**        | 87.50%      | B+     | 84.00%   | 91.00%  |
+| **Claude 3 Sonnet**         | 86.65%      | B      | 73.30%   | 100.00% |
+| **Claude 3.5 Sonnet**       | 86.00%      | B      | 76.00%   | 96.00%  |
+| **Gemini-Pro**              | 84.60%      | B      | 76.70%   | 92.50%  |
+| **Claude 2.1**              | 81.75%      | C+     | 66.00%   | 97.50%  |
+| **Zephyr-7B Beta (7B)**     | 43.70%      | F      | 43.70%   | N/A     |
+| **microsoft/phi-2 (2.7B)**  | 37.33%      | F      | 37.33%   | N/A     |
+| **StableLM-2 Zephyr (1.6B)**| 24.33%      | F      | 24.33%   | N/A     |
 
 Key Observations:
 1. **Model Performance**:
