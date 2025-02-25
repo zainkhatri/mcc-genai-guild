@@ -1,0 +1,119 @@
+{
+  "status": "success",
+  "leaderboard": [
+    {
+      "model_name": "gpt-4-0125-preview",
+      "total_score": 0.9816666666666667
+    },
+    {
+      "model_name": "gpt-4-turbo-preview",
+      "total_score": 0.98
+    },
+    {
+      "model_name": "gpt-4o-2024-11-20",
+      "total_score": 0.9791666666666666
+    }
+  ],
+  "ethical_ranking": [
+    {
+      "model_name": "claude-3-opus-20240229",
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "claude-3-sonnet-20240229",
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "gpt-4-0125-preview",
+      "ethical_compliance": 1.0
+    }
+  ],
+  "accuracy_ranking": [
+    {
+      "model_name": "gpt-4o-2024-11-20",
+      "accuracy": 0.9833333333333333
+    },
+    {
+      "model_name": "gemini-2.0-flash",
+      "accuracy": 0.98
+    },
+    {
+      "model_name": "gpt-4-0125-preview",
+      "accuracy": 0.9633333333333334
+    }
+  ],
+  "areas_for_improvement": [],
+  "metrics": {
+    "avg_compliance": 0.8777777777777778,
+    "avg_accuracy": 0.8818518518518519,
+    "avg_total_score": 0.8798148148148148,
+    "model_count": 9
+  },
+  "complete_rankings": [
+    {
+      "model_name": "gpt-4-0125-preview",
+      "accuracy": 0.9633333333333334,
+      "ethical_alignment": 1.0,
+      "total_score": 0.9816666666666667,
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "gpt-4-turbo-preview",
+      "accuracy": 0.96,
+      "ethical_alignment": 1.0,
+      "total_score": 0.98,
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "gpt-4o-2024-11-20",
+      "accuracy": 0.9833333333333333,
+      "ethical_alignment": 0.975,
+      "total_score": 0.9791666666666666,
+      "ethical_compliance": 0.975
+    },
+    {
+      "model_name": "claude-3-opus-20240229",
+      "accuracy": 0.9533333333333334,
+      "ethical_alignment": 1.0,
+      "total_score": 0.9766666666666667,
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "gemini-2.0-flash",
+      "accuracy": 0.98,
+      "ethical_alignment": 0.95,
+      "total_score": 0.965,
+      "ethical_compliance": 0.95
+    },
+    {
+      "model_name": "claude-3-sonnet-20240229",
+      "accuracy": 0.7333333333333333,
+      "ethical_alignment": 1.0,
+      "total_score": 0.8666666666666667,
+      "ethical_compliance": 1.0
+    },
+    {
+      "model_name": "gemini-pro",
+      "accuracy": 0.7666666666666667,
+      "ethical_alignment": 0.925,
+      "total_score": 0.8458333333333334,
+      "ethical_compliance": 0.925
+    },
+    {
+      "model_name": "claude-2.1",
+      "accuracy": 0.66,
+      "ethical_alignment": 0.975,
+      "total_score": 0.8175,
+      "ethical_compliance": 0.975
+    },
+    {
+      "model_name": "gpt-4",
+      "accuracy": 0.9366666666666666,
+      "ethical_alignment": 0.075,
+      "total_score": 0.5058333333333334,
+      "ethical_compliance": 0.075
+    }
+  ],
+  "timestamp": "2025-02-24T17:03:49.800851",
+  "version": "1.0"
+}
