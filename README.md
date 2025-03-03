@@ -145,25 +145,27 @@ This script evaluates a small subset (e.g., 5 questions) of the test set and pri
 #### Comparative Model Performance
 
 ##### **Overall Model Rankings**
-| Model Name                   | Total Score | Grade  | Accuracy | Ethics  |
-|------------------------------|-------------|--------|----------|---------|
-| **GPT-4-0125 Optimized**     | 98.15%      | A+     | 96.30%   | 100.00% |
-| **GPT-4-Turbo Optimized**    | 98.00%      | A+     | 96.00%   | 100.00% |
-| **GPT-4o (2024-11-20)**      | 97.92%      | A+     | 98.33%   | 97.50%  |
-| **Claude 3 Opus (2024-02)**  | 97.67%      | A+     | 95.33%   | 100.00% |
-| **GPT-4**                    | 97.65%      | A      | 97.80%   | 97.50%  |
-| **Gemini 2.0 Flash**         | 96.50%      | A+     | 98.00%   | 95.00%  |
-| **Gemini 1.5 Pro**           | 95.50%      | A      | 96.00%   | 95.00%  |
-| **Claude 3.5 Opus**          | 95.00%      | A      | 92.00%   | 98.00%  |
-| **Gemini 1.5 Flash**         | 87.50%      | B+     | 84.00%   | 91.00%  |
-| **Claude 3 Sonnet (2024-02)**| 86.67%      | B      | 73.33%   | 100.00% |
-| **Claude 3.5 Sonnet**        | 86.00%      | B      | 76.00%   | 96.00%  |
-| **Gemini Pro**               | 84.58%      | B      | 76.67%   | 92.50%  |
-| **Claude 2.1**               | 81.75%      | C+     | 66.00%   | 97.50%  |
-| **GPT-4 (Legacy Version)**   | 50.58%      | F      | 93.67%   | 7.50%   |
-| **Zephyr-7B Beta (7B)**      | 43.70%      | F      | 43.70%   | N/A     |
-| **microsoft/phi-2 (2.7B)**   | 37.33%      | F      | 37.33%   | N/A     |
-| **StableLM-2 Zephyr (1.6B)** | 24.33%      | F      | 24.33%   | N/A     |
+| Model Name                     | Total Score | Grade  | Accuracy | Ethics  | Bias  | Source  |
+|--------------------------------|-------------|--------|----------|---------|------|---------|
+| **GPT-4-0125 Optimized**       | 98.15%      | A+     | 96.30%   | 100.00% | N/A  | N/A     |
+| **GPT-4-Turbo Optimized**      | 98.00%      | A+     | 96.00%   | 100.00% | N/A  | N/A     |
+| **GPT-4o (2024-11-20)**        | 97.92%      | A+     | 98.33%   | 97.50%  | N/A  | N/A     |
+| **Claude 3 Opus (2024-02)**    | 97.67%      | A+     | 95.33%   | 100.00% | N/A  | N/A     |
+| **openai/gpt-4.5-preview**     | 96.92%      | A      | 98.33%   | 97.50%  | 96.00% | 95.83% |
+| **anthropic/claude-3.7-sonnet**| 96.75%      | A      | 97.67%   | 97.50%  | 96.00% | 95.83% |
+| **GPT-4**                      | 97.65%      | A      | 97.80%   | 97.50%  | N/A  | 91.67%  |
+| **Gemini 2.0 Flash**           | 96.50%      | A+     | 98.00%   | 95.00%  | N/A  | N/A     |
+| **Gemini 1.5 Pro**             | 95.50%      | A      | 96.00%   | 95.00%  | N/A  | N/A     |
+| **Claude 3.5 Opus**            | 95.00%      | A      | 92.00%   | 98.00%  | N/A  | N/A     |
+| **Gemini 1.5 Flash**           | 87.50%      | B+     | 84.00%   | 91.00%  | N/A  | N/A     |
+| **Claude 3 Sonnet (2024-02)**  | 86.67%      | B      | 73.33%   | 100.00% | N/A  | N/A     |
+| **Claude 3.5 Sonnet**          | 86.00%      | B      | 76.00%   | 96.00%  | N/A  | N/A     |
+| **Gemini Pro**                 | 84.58%      | B      | 76.67%   | 92.50%  | N/A  | N/A     |
+| **Claude 2.1**                 | 81.75%      | C+     | 66.00%   | 97.50%  | N/A  | N/A     |
+| **GPT-4 (Legacy Version)**     | 50.58%      | F      | 93.67%   | 7.50%   | N/A  | N/A     |
+| **Zephyr-7B Beta (7B)**        | 43.70%      | F      | 43.70%   | N/A     | N/A  | N/A     |
+| **microsoft/phi-2 (2.7B)**     | 37.33%      | F      | 37.33%   | N/A     | N/A  | N/A     |
+| **StableLM-2 Zephyr (1.6B)**   | 24.33%      | F      | 24.33%   | N/A     | N/A  | N/A     |
 
 Key Observations:
 1. **Model Performance**:
