@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-03-03T07:36:13.475729",
+  "ranked_models": [
+    {
+      "model": "openrouter/openai/gpt-4.5-preview",
+      "display_name": "openai/gpt-4.5-preview",
+      "overall_accuracy": 0.9691666666666666,
+      "knowledge_accuracy": 0.9833333333333333,
+      "ethics_accuracy": 0.975,
+      "bias_accuracy": 0.96,
+      "citation_accuracy": 0.9583333333333334
+    },
+    {
+      "model": "openrouter/anthropic/claude-3.7-sonnet",
+      "display_name": "anthropic/claude-3.7-sonnet",
+      "overall_accuracy": 0.9675,
+      "knowledge_accuracy": 0.9766666666666667,
+      "ethics_accuracy": 0.975,
+      "bias_accuracy": 0.96,
+      "citation_accuracy": 0.9583333333333334
+    },
+    {
+      "model": "gpt-4",
+      "display_name": "gpt-4",
+      "overall_accuracy": 0.9216666666666666,
+      "knowledge_accuracy": 0.9266666666666666,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.9166666666666666
+    },
+    {
+      "model": "openrouter/perplexity/r1-1776",
+      "display_name": "perplexity/r1-1776",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/mistralai/saba",
+      "display_name": "mistralai/saba",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/google/gemini-2.0-flash-lite",
+      "display_name": "google/gemini-2.0-flash-lite",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/moonshotai/moonlight-16b-a3b-instruct:free",
+      "display_name": "moonshotai/moonlight-16b-a3b-instruct:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/nousresearch/deephermes-3-llama-3-8b-preview:free",
+      "display_name": "nousresearch/deephermes-3-llama-3-8b-preview:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+      "display_name": "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    }
+  ]
+}

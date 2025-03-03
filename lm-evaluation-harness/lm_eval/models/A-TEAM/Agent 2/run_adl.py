@@ -1,3 +1,10 @@
+"""
+run_adl.py
+
+Script to run the LangGraph ADL evaluation workflow with top models from OpenRouter.
+Fixed to avoid circular imports.
+"""
+
 import os
 import json
 import asyncio
@@ -6,203 +13,262 @@ from typing import List, Dict
 from dotenv import load_dotenv
 from adl_graph import ADLGraph
 
-def load_questions(knowledge_path: str, ethics_path: str) -> List[Dict]:
+def find_data_directory():
+    """Find the directory containing the data files"""
+    possible_data_dirs = [
+        "../data",               # From Agent 2 dir
+        "../../data",            # From Agent 2 dir, one level up
+        "../../../data",         # From Agent 2 dir, two levels up
+        "lm_eval/data",          # From repo root
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../data")  # Based on script location
+    ]
+    
+    for dir_path in possible_data_dirs:
+        if os.path.exists(dir_path) and os.path.isdir(dir_path):
+            # Check if at least one of our files exists there
+            if os.path.exists(os.path.join(dir_path, "knowledge.jsonl")):
+                return dir_path
+    
+    # If we couldn't find it automatically, try the relative path we're aware of
+    return "../../data"
+
+def load_questions() -> List[Dict]:
+    """
+    Load questions from knowledge, ethics, bias, and source files.
+    """
     questions = []
-    # Load knowledge questions
-    if os.path.exists(knowledge_path):
-        with open(knowledge_path, 'r') as f:
-            all_knowledge = [json.loads(line) for line in f]
-            for q in all_knowledge[:300]:  # limit to 5 for testing
-                q['category'] = 'knowledge'
-                questions.append(q)
-    # Load ethics questions
-    if os.path.exists(ethics_path):
-        with open(ethics_path, 'r') as f:
-            all_ethics = [json.loads(line) for line in f]
-            for q in all_ethics[:40]:  # limit to 5 for testing
-                q['category'] = 'ethics'
-                questions.append(q)
+    
+    # Locate data directory
+    data_dir = find_data_directory()
+    print(f"Using data directory: {data_dir}")
+    
+    # File mappings
+    file_mappings = [
+        {"path": os.path.join(data_dir, "knowledge.jsonl"), "category": "knowledge", "desc": "knowledge"},
+        {"path": os.path.join(data_dir, "ethics.jsonl"), "category": "ethics", "desc": "ethics"},
+        {"path": os.path.join(data_dir, "bias_detection.jsonl"), "category": "bias", "desc": "bias detection"},
+        {"path": os.path.join(data_dir, "source_citation.jsonl"), "category": "source", "desc": "source citation"}
+    ]
+    
+    # Load each file
+    for file_info in file_mappings:
+        path = file_info["path"]
+        category = file_info["category"]
+        desc = file_info["desc"]
+        
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                file_questions = []
+                for line in f:
+                    q = json.loads(line)
+                    q['category'] = category
+                    file_questions.append(q)
+                
+                questions.extend(file_questions)
+                print(f"Loaded {len(file_questions)} {desc} questions")
+        else:
+            print(f"Warning: {desc} file not found at {path}")
+    
     return questions
 
-def get_base_configs():
-    """Get base configurations for different model providers"""
-    # Base Gemini config
-    gemini_base = {
-        "api_key": os.getenv("GOOGLE_API_KEY"),
-        "temperature": 0,
-        "generation_config": {
-            "temperature": 0,
-            "top_p": 0.95,
-            "top_k": 40,
-            "max_output_tokens": 1024,
-        },
-        "system_message": "You are an Islamic knowledge evaluator. Provide concise, accurate answers."
-    }
-
-    # Base OpenAI config
-    openai_base = {
-        "api_key": os.getenv("OPENAI_API_KEY"),
+def get_models_config() -> Dict:
+    """
+    Get model configurations with top OpenRouter models.
+    """
+    # Base config settings
+    base_config = {
         "temperature": 0,
         "max_tokens": 1,
         "system_message": "You are an Islamic knowledge evaluator. Provide concise, accurate answers."
     }
-
-    # Base Anthropic config
-    anthropic_base = {
-        "api_key": os.getenv("ANTHROPIC_API_KEY"),
-        "temperature": 0,
-        "max_tokens": 1,
-        "system_message": "You are an Islamic knowledge evaluator. Provide concise, accurate answers."
-    }
-
-    return gemini_base, openai_base, anthropic_base
-
-def get_models_config(eval_mode: str = "all") -> Dict:
-    """
-    Get model configurations based on evaluation mode.
     
-    Args:
-        eval_mode (str): Either "all" for all providers or "gemini" for Gemini-only
-    """
-    gemini_base, openai_base, anthropic_base = get_base_configs()
+    config = {}
     
-    if eval_mode == "gemini":
-        return {
-            "gemini-pro": gemini_base.copy(),
-            "gemini-2.0-flash": gemini_base.copy(),
-        }
+    # Add OpenAI model if API key available
+    if os.getenv("OPENAI_API_KEY"):
+        openai_config = base_config.copy()
+        openai_config["api_key"] = os.getenv("OPENAI_API_KEY")
+        config["gpt-4"] = openai_config
     
-    # Full configuration for all providers
-    return {
+    # Add OpenRouter models if API key available
+    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+    if openrouter_api_key:
+        print("Adding top-tier OpenRouter models...")
         
-        # OpenAI models
-        "gpt-4-0125-preview": openai_base.copy(),
-        "gpt-4-turbo-preview": openai_base.copy(),
-        "gpt-4": openai_base.copy(),
-        "gpt-4o-2024-11-20": openai_base.copy()
-    }
-
-async def evaluate_models_in_batches(adl: ADLGraph, questions: List[Dict], models_config: Dict) -> Dict:
-    """Evaluates models in separate batches by provider"""
-    all_results = {
-        "models_evaluated": [],
-        "scores": {},
-        "detailed_results": {
-            "knowledge": {},
-            "ethics": {}
-        },
-        "timestamp": datetime.now().isoformat()
-    }
-
-    # Group models by provider
-    provider_groups = {
-        "anthropic": {},
-        "openai": {},
-        "google": {}
-    }
-
-    for model_name, config in models_config.items():
-        if model_name.startswith("claude"):
-            provider_groups["anthropic"][model_name] = config
-        elif model_name.startswith("gpt"):
-            provider_groups["openai"][model_name] = config
-        elif model_name.startswith("gemini"):
-            provider_groups["google"][model_name] = config
-
-    # Evaluate each provider group
-    for provider, models in provider_groups.items():
-        if not models:
-            continue
+        # Top models to test
+        top_models = [
+            "openai/gpt-4.5-preview",
+            "anthropic/claude-3.7-sonnet",
+            "perplexity/r1-1776",
+            "mistralai/saba",
+            "google/gemini-2.0-flash-lite",
+            "moonshotai/moonlight-16b-a3b-instruct:free",
+            "nousresearch/deephermes-3-llama-3-8b-preview:free",
+            "cognitivecomputations/dolphin3.0-r1-mistral-24b:free"
             
-        print(f"\nEvaluating {provider.upper()} models...")
-        try:
-            provider_adl = ADLGraph(models)
-            results = await provider_adl.run_evaluation(questions)
-            
-            # Merge results
-            all_results["models_evaluated"].extend(results.get("models_evaluated", []))
-            all_results["scores"].update(results.get("scores", {}))
-            for result_type in ["knowledge", "ethics"]:
-                all_results["detailed_results"][result_type].update(
-                    results.get("detailed_results", {}).get(result_type, {})
-                )
-                
-        except Exception as e:
-            print(f"Error evaluating {provider} models: {str(e)}")
-            all_results["errors"] = all_results.get("errors", {})
-            all_results["errors"][provider] = str(e)
-
-    return all_results
-
-def save_reports(report: Dict, prefix: str = "evaluation"):
-    """Save both detailed and summary reports"""
-    os.makedirs("results", exist_ok=True)
-    timestamp = datetime.now().isoformat()
+            # Uncomment these if budget allows
+            # "anthropic/claude-3.7-sonnet:thinking",
+            # "anthropic/claude-3.7-sonnet:self-moderated",
+        ]
+        
+        # Create configuration for each model
+        for model_id in top_models:
+            model_name = f"openrouter/{model_id}"
+            model_config = base_config.copy()
+            model_config["api_key"] = openrouter_api_key
+            config[model_name] = model_config
+        
+        print(f"Added {len(top_models)} premium OpenRouter models")
+    else:
+        print("OPENROUTER_API_KEY not found in environment variables")
     
-    # Save detailed report
-    filename = f"{prefix}_{timestamp}.json"
-    report_path = os.path.join("results", filename)
-    with open(report_path, "w") as f:
-        json.dump(report, f, indent=2)
-    print(f"\nDetailed report saved to: {report_path}")
+    return config
+
+async def run_evaluation(questions: List[Dict], models_config: Dict) -> Dict:
+    """
+    Run the evaluation with the ADLGraph
+    """
+    # Initialize ADL Graph
+    adl = ADLGraph(models_config)
     
-    # Save summary report
-    summary_filename = f"{prefix}_summary_{timestamp}.json"
-    summary_path = os.path.join("results", summary_filename)
-    summary_report = {
-        "timestamp": timestamp,
-        "models_evaluated": list(report["scores"].keys()),
-        "summary_metrics": report["scores"]
-    }
-    with open(summary_path, "w") as f:
-        json.dump(summary_report, f, indent=2)
-    print(f"Summary report saved to: {summary_path}")
+    print(f"Starting evaluation with {len(models_config)} models...")
+    try:
+        return await adl.run_evaluation(questions)
+    except Exception as e:
+        print(f"Error during evaluation: {str(e)}")
+        raise
 
 def print_results(report: Dict):
-    """Print formatted evaluation results"""
-    print("\nResults Summary:")
-    print("=" * 50)
-
-    if report["scores"]:
-        for model_name, scores in report["scores"].items():
-            print(f"\n{model_name}:")
-            print(f"Knowledge Accuracy: {scores['knowledge_accuracy']:.2%}")
-            print(f"Ethics Accuracy: {scores['ethics_accuracy']:.2%}")
-            print(f"Timestamp: {scores['timestamp']}")
+    """Print formatted evaluation results with all four categories"""
+    print("\nRESULTS SUMMARY:")
+    print("=" * 100)
     
-    if "errors" in report:
-        print("\nErrors encountered:")
-        print("=" * 50)
-        for provider, error in report["errors"].items():
-            print(f"{provider}: {error}")
+    if "ranked_models" in report:
+        # Print table header
+        header = f"{'Rank':<5}{'Model':<40}{'Overall':<9}{'Knowledge':<11}{'Ethics':<9}{'Bias':<9}{'Source':<9}"
+        print(header)
+        print("-" * 100)
+        
+        # Print each model's results
+        for i, model_data in enumerate(report["ranked_models"], 1):
+            display_name = model_data["display_name"]
+            if len(display_name) > 37:
+                display_name = display_name[:34] + "..."
+            
+            row = (
+                f"{i:<5}{display_name:<40}"
+                f"{model_data['overall_accuracy']:.2%}   "
+                f"{model_data['knowledge_accuracy']:.2%}    "
+                f"{model_data['ethics_accuracy']:.2%}   "
+                f"{model_data['bias_accuracy']:.2%}   "
+                f"{model_data['citation_accuracy']:.2%}"
+            )
+            print(row)
+    elif "scores" in report:
+        # Alternative format if ranked_models not available
+        for model_name, scores in report["scores"].items():
+            display_name = model_name
+            if model_name.startswith("openrouter/"):
+                display_name = model_name.replace("openrouter/", "")
+                
+            print(f"\n{display_name}:")
+            print(f"  Knowledge Accuracy: {scores.get('knowledge_accuracy', 0):.2%}")
+            print(f"  Ethics Accuracy: {scores.get('ethics_accuracy', 0):.2%}")
+            print(f"  Bias Accuracy: {scores.get('bias_accuracy', 0):.2%}")
+            print(f"  Citation Accuracy: {scores.get('citation_accuracy', 0):.2%}")
+            print(f"  Overall Accuracy: {scores.get('overall_accuracy', 0):.2%}")
+    
+    # Print cost estimate
+    print("\nEstimated Cost Analysis:")
+    print("=" * 100)
+    
+    # Model pricing estimates ($ per million tokens)
+    pricing = {
+        "openai/gpt-4.5-preview": {"input": 75, "output": 150},
+        "anthropic/claude-3.7-sonnet": {"input": 3, "output": 15},
+        "anthropic/claude-3.7-sonnet:thinking": {"input": 3, "output": 15},
+        "anthropic/claude-3.7-sonnet:self-moderated": {"input": 3, "output": 15},
+        "perplexity/r1-1776": {"input": 2, "output": 8},
+        "mistralai/saba": {"input": 0.2, "output": 0.6},
+        "google/gemini-2.0-flash-lite": {"input": 0.075, "output": 0.3},
+        "moonshotai/moonlight-16b-a3b-instruct:free": {"input": 0, "output": 0},
+        "nousresearch/deephermes-3-llama-3-8b-preview:free": {"input": 0, "output": 0},
+        "cognitivecomputations/dolphin3.0-r1-mistral-24b:free": {"input": 0, "output": 0}
+    }
+    
+    # Count total questions by category
+    question_counts = {
+        "knowledge": 0,
+        "ethics": 0,
+        "bias": 0,
+        "source": 0
+    }
+    
+    for category in question_counts.keys():
+        if category in report.get("detailed_results", {}):
+            # Get the first model's results to count questions
+            first_model = next(iter(report["detailed_results"][category].keys()), None)
+            if first_model:
+                question_counts[category] = len(report["detailed_results"][category][first_model])
+    
+    total_questions = sum(question_counts.values())
+    
+    # Assume average token counts
+    avg_input_tokens = 100  # per question
+    avg_output_tokens = 5   # max tokens setting
+    
+    total_cost = 0
+    for model_name in report.get("models_evaluated", []):
+        # Skip models with no pricing info
+        model_id = model_name.replace("openrouter/", "")
+        if model_id not in pricing:
+            continue
+            
+        model_pricing = pricing[model_id]
+        
+        # Calculate cost
+        input_cost = (total_questions * avg_input_tokens * model_pricing["input"]) / 1e6
+        output_cost = (total_questions * avg_output_tokens * model_pricing["output"]) / 1e6
+        model_cost = input_cost + output_cost
+        
+        # Add to total
+        total_cost += model_cost
+        
+        # Print model cost
+        if model_cost > 0:
+            print(f"{model_id:<40}: ${model_cost:.4f} ({total_questions} questions)")
+    
+    print(f"\nTotal estimated cost: ${total_cost:.2f}")
+    print(f"Questions evaluated: {question_counts}")
 
 async def main():
     load_dotenv()
     
-    # Get evaluation mode from environment or default to "all"
-    eval_mode = os.getenv("EVAL_MODE", "all").lower()
+    # Load questions from all four categories
+    questions = load_questions()
+    print(f"Loaded {len(questions)} total questions")
+    
+    # Count questions by category
+    category_counts = {}
+    for q in questions:
+        category = q.get("category", "unknown")
+        category_counts[category] = category_counts.get(category, 0) + 1
+    
+    for category, count in sorted(category_counts.items()):
+        print(f"  - {category}: {count} questions")
     
     # Get model configurations
-    models_config = get_models_config(eval_mode)
+    models_config = get_models_config()
     
-    # Load questions
-    questions = load_questions("../../../data/q_and_a.jsonl", "../../../data/ethics.jsonl")
-    print(f"Loaded {len(questions)} questions")
-
-    # Initialize ADL Graph
-    adl = ADLGraph(models_config)
-
-    print(f"\nStarting evaluation in {eval_mode.upper()} mode...")
+    print(f"\nConfigured {len(models_config)} models for evaluation:")
+    for model in models_config.keys():
+        print(f"  - {model}")
+    
     try:
-        if eval_mode == "gemini":
-            report = await adl.run_evaluation(questions)
-        else:
-            report = await evaluate_models_in_batches(adl, questions, models_config)
-        
+        # Run evaluation
+        report = await run_evaluation(questions, models_config)
         print("\nEvaluation complete!")
         print_results(report)
-        save_reports(report, prefix=f"{eval_mode}_evaluation")
-
     except Exception as e:
         print(f"Error during evaluation: {str(e)}")
         raise
