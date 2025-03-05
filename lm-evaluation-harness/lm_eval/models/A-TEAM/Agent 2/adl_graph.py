@@ -10,6 +10,7 @@ Implements ADLGraph (Agent 2) as a LangGraph workflow with multiple evaluation n
 - Report Generation
 
 Standalone implementation that doesn't rely on circular imports.
+FIXED VERSION for OpenRouter model IDs.
 """
 
 import os
@@ -100,18 +101,20 @@ class SimpleEvaluator:
         return base_prompt
         
     def _get_model_response(self, prompt: str, token_limit: int) -> str:
-        """Get response from the model"""
+        """Get response from the model - FIXED FOR OPENROUTER"""
         try:
             # Handle OpenRouter models
             if self.model_name.startswith('openrouter/'):
-                model_id = self.model_name.replace("openrouter/", "")
+                model_id = self.model_name.replace("openrouter/", "")  # Remove the openrouter/ prefix
                 headers = {
                     "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://llm-evaluation-framework.com",
+                    "X-Title": "LLM Evaluation Framework"
                 }
                 
                 data = {
-                    "model": model_id,
+                    "model": model_id,  # This should be without the openrouter/ prefix
                     "messages": [
                         {"role": "user", "content": prompt}
                     ],

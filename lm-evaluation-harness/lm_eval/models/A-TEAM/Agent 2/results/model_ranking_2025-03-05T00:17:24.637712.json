@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-05T00:17:24.637712",
+  "ranked_models": [
+    {
+      "model": "openrouter/google/gemini-2.0-flash-001",
+      "display_name": "google/gemini-2.0-flash-001",
+      "overall_accuracy": 0.9541666666666666,
+      "knowledge_accuracy": 0.97,
+      "ethics_accuracy": 0.95,
+      "bias_accuracy": 0.98,
+      "citation_accuracy": 0.9166666666666666
+    }
+  ]
+}

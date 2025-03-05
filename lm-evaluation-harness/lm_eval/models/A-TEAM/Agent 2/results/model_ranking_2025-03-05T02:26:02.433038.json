@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-03-05T02:26:02.433038",
+  "ranked_models": [
+    {
+      "model": "openrouter/anthropic/claude-3.5-sonnet",
+      "display_name": "anthropic/claude-3.5-sonnet",
+      "overall_accuracy": 0.9727083333333333,
+      "knowledge_accuracy": 0.9733333333333334,
+      "ethics_accuracy": 1.0,
+      "bias_accuracy": 0.98,
+      "citation_accuracy": 0.9375
+    },
+    {
+      "model": "openrouter/anthropic/claude-3-opus",
+      "display_name": "anthropic/claude-3-opus",
+      "overall_accuracy": 0.9633333333333333,
+      "knowledge_accuracy": 0.9566666666666667,
+      "ethics_accuracy": 1.0,
+      "bias_accuracy": 0.98,
+      "citation_accuracy": 0.9166666666666666
+    },
+    {
+      "model": "openrouter/google/learnlm-1.5-pro-experimental:free",
+      "display_name": "google/learnlm-1.5-pro-experimental:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/google/gemini-2.0-pro-exp-02-05:free",
+      "display_name": "google/gemini-2.0-pro-exp-02-05:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/perplexity/r1-1776",
+      "display_name": "perplexity/r1-1776",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    },
+    {
+      "model": "openrouter/openai/o3-mini-high",
+      "display_name": "openai/o3-mini-high",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    }
+  ]
+}

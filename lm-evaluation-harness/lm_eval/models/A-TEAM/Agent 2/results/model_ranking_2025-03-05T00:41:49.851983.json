@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-05T00:41:49.851983",
+  "ranked_models": [
+    {
+      "model": "openrouter/openai/o1",
+      "display_name": "openai/o1",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-05T00:26:19.709490",
+  "ranked_models": [
+    {
+      "model": "openrouter/openai/gpt-4-turbo",
+      "display_name": "openai/gpt-4-turbo",
+      "overall_accuracy": 0.9370833333333333,
+      "knowledge_accuracy": 0.9366666666666666,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.9375
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-05T00:54:48.637353",
+  "ranked_models": [
+    {
+      "model": "openrouter/deepseek/deepseek-r1:free",
+      "display_name": "deepseek/deepseek-r1:free",
+      "overall_accuracy": 0,
+      "knowledge_accuracy": 0.0,
+      "ethics_accuracy": 0.0,
+      "bias_accuracy": 0.0,
+      "citation_accuracy": 0.0
+    }
+  ]
+}

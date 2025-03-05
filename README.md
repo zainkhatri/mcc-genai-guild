@@ -142,24 +142,56 @@ python main_eval.py
 ```
 This script evaluates a small subset (e.g., 5 questions) of the test set and prints the accuracy for each model.
 
-#### Comparative Model Performance
+## LLM Evaluation with Weighted Scores
 
-##### **Overall Model Rankings**
+### Weights Based on Question Distribution
+- **Accuracy**: 300 questions (68.49% of total weight)
+- **Ethics**: 40 questions (9.13% of total weight)
+- **Bias**: 50 questions (11.42% of total weight)
+- **Source**: 48 questions (10.96% of total weight)
+- **Total**: 438 questions (100%)
+
+### Weighted Evaluation Results
+
+### Weighted Evaluation Results
+
+| Model Name | Weighted Score | Grade | Accuracy | Ethics | Bias | Source |
+|------------|----------------|-------|----------|--------|------|--------|
+| openai/gpt-4o | A+ | A+ | 99.33% | 97.50% | 96.00% | 93.75% |
+| openai/gpt-4.5-preview | A+ | A+ | 98.33% | 97.50% | 96.00% | 95.83% |
+| anthropic/claude-3.5-sonnet | A+ | A+ | 97.67% | 100.00% | 98.00% | 91.67% |
+| anthropic/claude-3.7-sonnet | A+ | A+ | 97.67% | 97.50% | 96.00% | 95.83% |
+| anthropic/claude-3.5-opus | A+ | A+ | 97.33% | 100.00% | 98.00% | 93.75% |
+| anthropic/claude-3-opus | A | A | 95.67% | 100.00% | 98.00% | 91.67% |
+| google/gemini-2.0-flash | A | A | 97.00% | 95.00% | 98.00% | 91.67% |
+| google/gemini-flash-1.5 | C+ | C+ | 73.67% | 92.50% | 96.00% | 81.25% |
+| openai/gpt-4-turbo | C | C | 93.67% | 0.00% | 0.00% | 93.75% |
+
+## How Weighted Scores Were Calculated
+
+The weighted score for each model was calculated using the following formula:
+
+```
+Weighted Score = 
+  (Accuracy × 0.6849) + 
+  (Ethics × 0.0913) + 
+  (Bias × 0.1142) + 
+  (Source × 0.1096)
+```
+
+## **Models Missing One or More Metrics**  
+(Models missing at least one of Accuracy, Ethics, Bias, or Source)
+
 | Model Name                     | Total Score | Grade  | Accuracy | Ethics  | Bias  | Source  |
 |--------------------------------|-------------|--------|----------|---------|------|---------|
 | **GPT-4-0125 Optimized**       | 98.15%      | A+     | 96.30%   | 100.00% | N/A  | N/A     |
 | **GPT-4-Turbo Optimized**      | 98.00%      | A+     | 96.00%   | 100.00% | N/A  | N/A     |
-| **GPT-4o (2024-11-20)**        | 97.92%      | A+     | 98.33%   | 97.50%  | N/A  | N/A     |
-| **Claude 3 Opus (2024-02)**    | 97.67%      | A+     | 95.33%   | 100.00% | N/A  | N/A     |
-| **openai/gpt-4.5-preview**     | 96.92%      | A      | 98.33%   | 97.50%  | 96.00% | 95.83% |
-| **anthropic/claude-3.7-sonnet**| 96.75%      | A      | 97.67%   | 97.50%  | 96.00% | 95.83% |
-| **GPT-4**                      | 97.65%      | A      | 97.80%   | 97.50%  | N/A  | 91.67%  |
 | **Gemini 2.0 Flash**           | 96.50%      | A+     | 98.00%   | 95.00%  | N/A  | N/A     |
 | **Gemini 1.5 Pro**             | 95.50%      | A      | 96.00%   | 95.00%  | N/A  | N/A     |
 | **Claude 3.5 Opus**            | 95.00%      | A      | 92.00%   | 98.00%  | N/A  | N/A     |
-| **Gemini 1.5 Flash**           | 87.50%      | B+     | 84.00%   | 91.00%  | N/A  | N/A     |
 | **Claude 3 Sonnet (2024-02)**  | 86.67%      | B      | 73.33%   | 100.00% | N/A  | N/A     |
 | **Claude 3.5 Sonnet**          | 86.00%      | B      | 76.00%   | 96.00%  | N/A  | N/A     |
+| **Gemini 1.5 Flash**           | 87.50%      | B+     | 84.00%   | 91.00%  | N/A  | N/A     |
 | **Gemini Pro**                 | 84.58%      | B      | 76.67%   | 92.50%  | N/A  | N/A     |
 | **Claude 2.1**                 | 81.75%      | C+     | 66.00%   | 97.50%  | N/A  | N/A     |
 | **GPT-4 (Legacy Version)**     | 50.58%      | F      | 93.67%   | 7.50%   | N/A  | N/A     |

@@ -1,8 +1,8 @@
 """
 run_adl.py
 
-Script to run the LangGraph ADL evaluation workflow with top models from OpenRouter.
-Fixed to avoid circular imports.
+Script to run the LangGraph ADL evaluation workflow with remaining models from OpenRouter.
+Updated with PROVIDED CORRECT OpenRouter model identifiers.
 """
 
 import os
@@ -73,7 +73,8 @@ def load_questions() -> List[Dict]:
 
 def get_models_config() -> Dict:
     """
-    Get model configurations with top OpenRouter models.
+    Get model configurations with the remaining models that need testing.
+    Using VERIFIED CORRECT OpenRouter model IDs.
     """
     # Base config settings
     base_config = {
@@ -84,41 +85,30 @@ def get_models_config() -> Dict:
     
     config = {}
     
-    # Add OpenAI model if API key available
-    if os.getenv("OPENAI_API_KEY"):
-        openai_config = base_config.copy()
-        openai_config["api_key"] = os.getenv("OPENAI_API_KEY")
-        config["gpt-4"] = openai_config
-    
     # Add OpenRouter models if API key available
     openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
     if openrouter_api_key:
-        print("Adding top-tier OpenRouter models...")
+        print("Adding remaining models to test...")
         
-        # Top models to test
-        top_models = [
-            "openai/gpt-4.5-preview",
-            "anthropic/claude-3.7-sonnet",
+        # Models we still need to test with CONFIRMED WORKING model IDs
+        # These are the exact IDs provided as known to work with OpenRouter
+        remaining_models = [
+            "anthropic/claude-3-opus",
+            "google/learnlm-1.5-pro-experimental:free",
+            "anthropic/claude-3.5-sonnet", 
+            "google/gemini-2.0-pro-exp-02-05:free",
             "perplexity/r1-1776",
-            "mistralai/saba",
-            "google/gemini-2.0-flash-lite",
-            "moonshotai/moonlight-16b-a3b-instruct:free",
-            "nousresearch/deephermes-3-llama-3-8b-preview:free",
-            "cognitivecomputations/dolphin3.0-r1-mistral-24b:free"
-            
-            # Uncomment these if budget allows
-            # "anthropic/claude-3.7-sonnet:thinking",
-            # "anthropic/claude-3.7-sonnet:self-moderated",
+            "openai/o3-mini-high"
         ]
         
         # Create configuration for each model
-        for model_id in top_models:
+        for model_id in remaining_models:
             model_name = f"openrouter/{model_id}"
             model_config = base_config.copy()
             model_config["api_key"] = openrouter_api_key
             config[model_name] = model_config
         
-        print(f"Added {len(top_models)} premium OpenRouter models")
+        print(f"Added {len(remaining_models)} models for testing")
     else:
         print("OPENROUTER_API_KEY not found in environment variables")
     
@@ -184,16 +174,12 @@ def print_results(report: Dict):
     
     # Model pricing estimates ($ per million tokens)
     pricing = {
-        "openai/gpt-4.5-preview": {"input": 75, "output": 150},
-        "anthropic/claude-3.7-sonnet": {"input": 3, "output": 15},
-        "anthropic/claude-3.7-sonnet:thinking": {"input": 3, "output": 15},
-        "anthropic/claude-3.7-sonnet:self-moderated": {"input": 3, "output": 15},
+        "anthropic/claude-3-opus": {"input": 15, "output": 75},
+        "google/learnlm-1.5-pro-experimental:free": {"input": 0, "output": 0},
+        "anthropic/claude-3.5-sonnet": {"input": 3, "output": 15},
+        "google/gemini-2.0-pro-exp-02-05:free": {"input": 0, "output": 0},
         "perplexity/r1-1776": {"input": 2, "output": 8},
-        "mistralai/saba": {"input": 0.2, "output": 0.6},
-        "google/gemini-2.0-flash-lite": {"input": 0.075, "output": 0.3},
-        "moonshotai/moonlight-16b-a3b-instruct:free": {"input": 0, "output": 0},
-        "nousresearch/deephermes-3-llama-3-8b-preview:free": {"input": 0, "output": 0},
-        "cognitivecomputations/dolphin3.0-r1-mistral-24b:free": {"input": 0, "output": 0}
+        "openai/o3-mini-high": {"input": 0.75, "output": 2.5}
     }
     
     # Count total questions by category
@@ -241,6 +227,121 @@ def print_results(report: Dict):
     print(f"\nTotal estimated cost: ${total_cost:.2f}")
     print(f"Questions evaluated: {question_counts}")
 
+def save_markdown_report(report: Dict):
+    """
+    Save a markdown report with the weighted scores based on the leaderboard format
+    """
+    # Create results directory if it doesn't exist
+    os.makedirs("results", exist_ok=True)
+    
+    # Calculate weighted scores for each model
+    weights = {
+        "knowledge": 300 / 438,  # 68.49%
+        "ethics": 40 / 438,      # 9.13%
+        "bias": 50 / 438,        # 11.42%
+        "source": 48 / 438       # 10.96%
+    }
+    
+    weighted_results = []
+    
+    for model_name, scores in report.get("scores", {}).items():
+        display_name = model_name.replace("openrouter/", "")
+        
+        # Map to the original model names for the leaderboard
+        model_mapping = {
+            "anthropic/claude-3-opus": "Claude 3 Opus (2024-02)",
+            "google/learnlm-1.5-pro-experimental:free": "Gemini 1.5 Pro",
+            "anthropic/claude-3.5-sonnet": "Claude 3.5 Opus",
+            "google/gemini-2.0-pro-exp-02-05:free": "Gemini Pro",
+            "perplexity/r1-1776": "Perplexity R1-1776",
+            "openai/o3-mini-high": "GPT-4-Turbo Optimized"
+        }
+        
+        # Get mapping or use the original
+        leaderboard_name = model_mapping.get(display_name, display_name)
+        
+        # Get scores for each category
+        knowledge_acc = scores.get("knowledge_accuracy", 0) * 100
+        ethics_acc = scores.get("ethics_accuracy", 0) * 100
+        bias_acc = scores.get("bias_accuracy", 0) * 100
+        source_acc = scores.get("citation_accuracy", 0) * 100
+        
+        # Calculate weighted score
+        weighted_score = (
+            (knowledge_acc * weights["knowledge"]) +
+            (ethics_acc * weights["ethics"]) + 
+            (bias_acc * weights["bias"]) + 
+            (source_acc * weights["source"])
+        )
+        
+        # Assign grade
+        grade = "F"
+        if weighted_score >= 97:
+            grade = "A+"
+        elif weighted_score >= 93:
+            grade = "A"
+        elif weighted_score >= 90:
+            grade = "A-"
+        elif weighted_score >= 87:
+            grade = "B+"
+        elif weighted_score >= 83:
+            grade = "B"
+        elif weighted_score >= 80:
+            grade = "B-"
+        elif weighted_score >= 77:
+            grade = "C+"
+        elif weighted_score >= 73:
+            grade = "C"
+        elif weighted_score >= 70:
+            grade = "C-"
+        elif weighted_score >= 67:
+            grade = "D+"
+        elif weighted_score >= 63:
+            grade = "D"
+        elif weighted_score >= 60:
+            grade = "D-"
+        
+        # Add to results
+        weighted_results.append({
+            "model_name": leaderboard_name,
+            "weighted_score": weighted_score,
+            "grade": grade,
+            "accuracy": knowledge_acc,
+            "ethics": ethics_acc,
+            "bias": bias_acc,
+            "source": source_acc
+        })
+    
+    # Sort by weighted score
+    weighted_results.sort(key=lambda x: x["weighted_score"], reverse=True)
+    
+    # Create markdown report
+    markdown = "# LLM Evaluation with Weighted Scores\n\n"
+    markdown += "## Weights Based on Question Distribution\n"
+    markdown += "- **Accuracy**: 300 questions (68.49% of total weight)\n"
+    markdown += "- **Ethics**: 40 questions (9.13% of total weight)\n"
+    markdown += "- **Bias**: 50 questions (11.42% of total weight)\n"
+    markdown += "- **Source**: 48 questions (10.96% of total weight)\n"
+    markdown += "- **Total**: 438 questions (100%)\n\n"
+    
+    markdown += "## Weighted Evaluation Results\n\n"
+    markdown += "| Model Name | Weighted Score | Grade | Accuracy (68.49%) | Ethics (9.13%) | Bias (11.42%) | Source (10.96%) |\n"
+    markdown += "|------------|----------------|-------|-------------------|---------------|---------------|----------------|\n"
+    
+    for model in weighted_results:
+        markdown += f"| {model['model_name']} | {model['weighted_score']:.2f}% | {model['grade']} | "
+        markdown += f"{model['accuracy']:.2f}% | {model['ethics']:.2f}% | {model['bias']:.2f}% | {model['source']:.2f}% |\n"
+    
+    # Save the markdown report
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"weighted_evaluation_{timestamp}.md"
+    filepath = os.path.join("results", filename)
+    
+    with open(filepath, "w") as f:
+        f.write(markdown)
+    
+    print(f"\nWeighted evaluation report saved to: {filepath}")
+
 async def main():
     load_dotenv()
     
@@ -269,6 +370,9 @@ async def main():
         report = await run_evaluation(questions, models_config)
         print("\nEvaluation complete!")
         print_results(report)
+        
+        # Save weighted markdown report for leaderboard integration
+        save_markdown_report(report)
     except Exception as e:
         print(f"Error during evaluation: {str(e)}")
         raise

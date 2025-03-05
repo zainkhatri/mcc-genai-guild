@@ -1,0 +1,10 @@
+Model,Overall,Knowledge,Ethics,Bias,Source
+anthropic/claude-3.5-sonnet,0.9683,0.9767,1.0000,0.9800,0.9167
+openai/gpt-4o-2024-11-20,0.9665,0.9933,0.9750,0.9600,0.9375
+anthropic/claude-3.7-sonnet:self-moderated,0.9656,0.9700,0.9750,0.9800,0.9375
+google/gemini-2.0-flash-001,0.9542,0.9700,0.9500,0.9800,0.9167
+openai/gpt-4-turbo,0.9371,0.9367,0.0000,0.0000,0.9375
+google/gemini-flash-1.5,0.8585,0.7367,0.9250,0.9600,0.8125
+openai/o1,0.0000,0.0000,0.0000,0.0000,0.0000
+openai/o3-mini-high,0.0000,0.0000,0.0000,0.0000,0.0000
+deepseek/deepseek-r1:free,0.0000,0.0000,0.0000,0.0000,0.0000

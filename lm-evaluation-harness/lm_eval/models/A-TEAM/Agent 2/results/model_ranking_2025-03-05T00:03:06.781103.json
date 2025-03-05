@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-05T00:03:06.781103",
+  "ranked_models": [
+    {
+      "model": "openrouter/anthropic/claude-3.7-sonnet:self-moderated",
+      "display_name": "anthropic/claude-3.7-sonnet:self-moderated",
+      "overall_accuracy": 0.965625,
+      "knowledge_accuracy": 0.97,
+      "ethics_accuracy": 0.975,
+      "bias_accuracy": 0.98,
+      "citation_accuracy": 0.9375
+    }
+  ]
+}
