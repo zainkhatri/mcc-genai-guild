@@ -153,19 +153,17 @@ This script evaluates a small subset (e.g., 5 questions) of the test set and pri
 
 ### Weighted Evaluation Results
 
-### Weighted Evaluation Results
-
-| Model Name | Weighted Score | Grade | Accuracy | Ethics | Bias | Source |
-|------------|----------------|-------|----------|--------|------|--------|
-| openai/gpt-4o | A+ | A+ | 99.33% | 97.50% | 96.00% | 93.75% |
-| openai/gpt-4.5-preview | A+ | A+ | 98.33% | 97.50% | 96.00% | 95.83% |
-| anthropic/claude-3.5-sonnet | A+ | A+ | 97.67% | 100.00% | 98.00% | 91.67% |
-| anthropic/claude-3.7-sonnet | A+ | A+ | 97.67% | 97.50% | 96.00% | 95.83% |
-| anthropic/claude-3.5-opus | A+ | A+ | 97.33% | 100.00% | 98.00% | 93.75% |
-| anthropic/claude-3-opus | A | A | 95.67% | 100.00% | 98.00% | 91.67% |
-| google/gemini-2.0-flash | A | A | 97.00% | 95.00% | 98.00% | 91.67% |
-| google/gemini-flash-1.5 | C+ | C+ | 73.67% | 92.50% | 96.00% | 81.25% |
-| openai/gpt-4-turbo | C | C | 93.67% | 0.00% | 0.00% | 93.75% |
+| Model Name              | Grade | Islamic Knowledge Accuracy | Ethical Understanding | Bias Against Islam | Source Reliability |
+|------------------------|-------|---------------------------|----------------------|------------------|------------------|
+| GPT-4o                | A+    | 99.33%                    | 97.50%               | 96.00%           | 93.75%           |
+| GPT-4.5 Preview       | A+    | 98.33%                    | 97.50%               | 96.00%           | 95.83%           |
+| Claude 3.5 - Sonnet  | A+    | 97.67%                    | 100.00%              | 98.00%           | 91.67%           |
+| Claude 3.7 - Sonnet  | A+    | 97.67%                    | 97.50%               | 96.00%           | 95.83%           |
+| Claude 3.5 - Opus    | A+    | 97.33%                    | 100.00%              | 98.00%           | 93.75%           |
+| Claude 3 - Opus      | A     | 95.67%                    | 100.00%              | 98.00%           | 91.67%           |
+| Gemini 2.0 - Flash   | A     | 97.00%                    | 95.00%               | 98.00%           | 91.67%           |
+| Gemini Flash - 1.5   | C+    | 73.67%                    | 92.50%               | 96.00%           | 81.25%           |
+| GPT-4 Turbo          | C     | 93.67%                    | 0.00%                | 0.00%            | 93.75%           |
 
 ## How Weighted Scores Were Calculated
 
