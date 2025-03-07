@@ -1,0 +1,37 @@
+2025-03-07T01:14:31.868094: Starting MizanRanker workflow...
+2025-03-07T01:14:31.870152: Input validation successful
+2025-03-07T01:14:31.873280: Processing data with columns: ['model_name', 'accuracy', 'ethical_alignment', 'bias', 'source_reliability']
+2025-03-07T01:14:31.873731: Calculated total_score as simple average of accuracy and ethical_alignment
+2025-03-07T01:14:31.873866: Model: GPT-4o, Total Score: 98.4150
+2025-03-07T01:14:31.873953: Model: GPT-4.5 Preview, Total Score: 97.9150
+2025-03-07T01:14:31.874043: Model: Claude 3.5 - Sonnet, Total Score: 98.8350
+2025-03-07T01:14:31.874157: Model: Claude 3.7 - Sonnet, Total Score: 97.5850
+2025-03-07T01:14:31.874268: Model: Claude 3.5 - Opus, Total Score: 98.6650
+2025-03-07T01:14:31.874404: Model: Gemini 2.0 - Flash, Total Score: 96.0000
+2025-03-07T01:14:31.874496: Model: Claude 3 - Opus, Total Score: 97.8350
+2025-03-07T01:14:31.874600: Model: Gemini Flash - 1.5, Total Score: 83.0850
+2025-03-07T01:14:31.874704: Model: GPT-4 Turbo, Total Score: 46.8350
+2025-03-07T01:14:31.875321: Calculated ethical_compliance with bias consideration
+2025-03-07T01:14:31.875498: Average metrics - Accuracy: 94.4822, Compliance: -8321.1111
+2025-03-07T01:14:31.876745: 
+Top models by score:
+2025-03-07T01:14:31.876856:   Claude 3.5 - Sonnet: 98.8350
+2025-03-07T01:14:31.876939:   Claude 3.5 - Opus: 98.6650
+2025-03-07T01:14:31.877099:   GPT-4o: 98.4150
+2025-03-07T01:14:31.877809: 
+Top models by ethical compliance:
+2025-03-07T01:14:31.877915:   GPT-4 Turbo: 0.0000
+2025-03-07T01:14:31.877989:   Gemini Flash - 1.5: -8787.5000
+2025-03-07T01:14:31.878147:   Gemini 2.0 - Flash: -9215.0000
+2025-03-07T01:14:31.878877: 
+Top models by accuracy:
+2025-03-07T01:14:31.879046:   GPT-4o: 99.3300
+2025-03-07T01:14:31.879162:   GPT-4.5 Preview: 98.3300
+2025-03-07T01:14:31.879282:   Claude 3.5 - Sonnet: 97.6700
+2025-03-07T01:14:31.879342: 
+Checking for weak areas:
+2025-03-07T01:14:31.879469:   accuracy: average = 94.4822, threshold = 0.8
+2025-03-07T01:14:31.879538:   ethical_alignment: average = 86.6667, threshold = 0.85
+2025-03-07T01:14:31.879685:   ethical_compliance: average = -8321.1111, threshold = 0.8
+2025-03-07T01:14:31.879784:   Identified weak areas: ['Ethical Compliance']
+2025-03-07T01:14:31.880907: Workflow completed successfully
