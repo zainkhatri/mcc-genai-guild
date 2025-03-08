@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
 import Objectives from './components/Objectives';
-import Evaluation from './components/Evaluation';
 import Models from './components/Models';
+import Evaluation from './components/Evaluation';
 import TechnicalComponents from './components/TechnicalComponents';
+import Ethics from './components/Ethics';
 import Appendix from './components/Appendix';
 import Footer from './components/Footer';
 
@@ -22,9 +23,10 @@ function App() {
       <Hero />
       <About />
       <Objectives />
-      <Evaluation />
       <Models />
+      <Evaluation />
       <TechnicalComponents />
+      <Ethics />
       <Appendix />
       <Footer />
     </AppContainer>

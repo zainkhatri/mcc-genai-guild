@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Add font-face declaration for ITC Garamond Book if available */
+@font-face {
+  font-family: 'ITC Garamond Book';
+  src: local('ITC Garamond Book'), local('ITCGaramondBook');
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   margin: 0;
@@ -18,8 +26,8 @@
   --accent-color: #8b5d33;
   --gradient-start: #4a6670;
   --gradient-end: #2c3e50;
-  --title-font: 'Cormorant Garamond', 'Playfair Display', serif;
-  --body-font: 'Poppins', sans-serif;
+  --title-font: 'ITC Garamond Book', 'EB Garamond', 'Cormorant Garamond', 'Times New Roman', serif;
+  --body-font: 'ITC Garamond Book', 'EB Garamond', 'Poppins', sans-serif;
   --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);

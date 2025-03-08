@@ -240,8 +240,107 @@ const NavigationButton = styled(motion.a)`
   }
 `;
 
-const Models = () => {
+// Animation variants
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+// Create a separate ModelCardComponent to use the hook properly
+const ModelCardComponent = ({ model, onHover, isHovered }) => {
   const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.3,
+    rootMargin: '0px 0px -100px 0px'
+  });
+
+  return (
+    <ModelCard
+      ref={ref}
+      variants={itemVariants}
+      initial="hidden"
+      animate="visible"
+      onMouseEnter={() => onHover(model.name)}
+      onMouseLeave={() => onHover(null)}
+      whileHover={{ scale: 1.02 }}
+    >
+      <ModelHeader>
+        <ModelName>{model.name}</ModelName>
+        <ModelDescription>{model.description}</ModelDescription>
+        <ModelGrade 
+          grade={model.grade}
+          animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {model.grade}
+        </ModelGrade>
+      </ModelHeader>
+      
+      <ModelBody>
+        <ModelStat>
+          <StatLabel>Knowledge Accuracy</StatLabel>
+          <StatValue>{model.knowledge}%</StatValue>
+        </ModelStat>
+        <StatBar 
+          value={model.knowledge} 
+          category="knowledge"
+          className={inView ? 'animate' : ''}
+        />
+        
+        <ModelStat>
+          <StatLabel>Ethics</StatLabel>
+          <StatValue>{model.ethics}%</StatValue>
+        </ModelStat>
+        <StatBar 
+          value={model.ethics} 
+          category="ethics"
+          className={inView ? 'animate' : ''}
+        />
+        
+        <ModelStat>
+          <StatLabel>Bias</StatLabel>
+          <StatValue>{model.bias}%</StatValue>
+        </ModelStat>
+        <StatBar 
+          value={model.bias} 
+          category="bias"
+          className={inView ? 'animate' : ''}
+        />
+        
+        <ModelStat>
+          <StatLabel>Source Reliability</StatLabel>
+          <StatValue>{model.source}%</StatValue>
+        </ModelStat>
+        <StatBar 
+          value={model.source} 
+          category="source"
+          className={inView ? 'animate' : ''}
+        />
+      </ModelBody>
+    </ModelCard>
+  );
+};
+
+const Models = () => {
+  const [sectionRef, sectionInView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
   });
@@ -347,42 +446,14 @@ const Models = () => {
     ? modelsData 
     : modelsData.filter(model => model.category === filter);
   
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        duration: 0.5,
-        staggerChildren: 0.1
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-  
-  const statBarVariants = {
-    hidden: { width: 0 },
-    visible: { 
-      width: '100%',
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-  
   return (
-    <ModelsSection id="models" ref={ref}>
+    <ModelsSection id="models">
       <BackgroundDecoration />
-      <ModelsContainer>
+      <ModelsContainer ref={sectionRef}>
         <SectionTitle
           variants={itemVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={sectionInView ? "visible" : "hidden"}
         >
           Evaluated Models
         </SectionTitle>
@@ -390,7 +461,7 @@ const Models = () => {
         <SectionSubtitle
           variants={itemVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={sectionInView ? "visible" : "hidden"}
         >
           Explore the performance of different AI language models on Islamic knowledge and ethical understanding
         </SectionSubtitle>
@@ -398,7 +469,7 @@ const Models = () => {
         <FilterContainer
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={sectionInView ? "visible" : "hidden"}
         >
           <FilterButton 
             active={filter === 'all'} 
@@ -441,82 +512,27 @@ const Models = () => {
         <ModelsGrid
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate="visible"
         >
-          {filteredModels.map((model, index) => (
-            <ModelCard
+          {filteredModels.map((model) => (
+            <ModelCardComponent 
               key={model.name}
-              variants={itemVariants}
-              onMouseEnter={() => setHoveredCard(model.name)}
-              onMouseLeave={() => setHoveredCard(null)}
-              whileHover={{ scale: 1.02 }}
-            >
-              <ModelHeader>
-                <ModelName>{model.name}</ModelName>
-                <ModelDescription>{model.description}</ModelDescription>
-                <ModelGrade 
-                  grade={model.grade}
-                  animate={hoveredCard === model.name ? { scale: 1.1 } : { scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {model.grade}
-                </ModelGrade>
-              </ModelHeader>
-              
-              <ModelBody>
-                <ModelStat>
-                  <StatLabel>Knowledge Accuracy</StatLabel>
-                  <StatValue>{model.knowledge}%</StatValue>
-                </ModelStat>
-                <StatBar 
-                  value={model.knowledge} 
-                  category="knowledge"
-                  className={inView && hoveredCard === model.name ? 'animate' : ''}
-                />
-                
-                <ModelStat>
-                  <StatLabel>Ethics</StatLabel>
-                  <StatValue>{model.ethics}%</StatValue>
-                </ModelStat>
-                <StatBar 
-                  value={model.ethics} 
-                  category="ethics"
-                  className={inView && hoveredCard === model.name ? 'animate' : ''}
-                />
-                
-                <ModelStat>
-                  <StatLabel>Bias</StatLabel>
-                  <StatValue>{model.bias}%</StatValue>
-                </ModelStat>
-                <StatBar 
-                  value={model.bias} 
-                  category="bias"
-                  className={inView && hoveredCard === model.name ? 'animate' : ''}
-                />
-                
-                <ModelStat>
-                  <StatLabel>Source Reliability</StatLabel>
-                  <StatValue>{model.source}%</StatValue>
-                </ModelStat>
-                <StatBar 
-                  value={model.source} 
-                  category="source"
-                  className={inView && hoveredCard === model.name ? 'animate' : ''}
-                />
-              </ModelBody>
-            </ModelCard>
+              model={model}
+              onHover={setHoveredCard}
+              isHovered={hoveredCard === model.name}
+            />
           ))}
         </ModelsGrid>
         
         <NavigationButton 
-          href="#"
+          href="#evaluation"
           whileHover={{ y: -5 }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.7 }}
         >
-          ↑
+          ↓
         </NavigationButton>
       </ModelsContainer>
     </ModelsSection>

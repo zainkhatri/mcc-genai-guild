@@ -156,14 +156,14 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          Islamic LLM Evaluation
+          Islamic GenAI Guild
         </HeroTitle>
         <HeroSubtitle
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"
         >
-          Benchmarking AI language models on Islamic knowledge, ethics, and bias detection
+          LLM Evaluation Initiative
         </HeroSubtitle>
         <HeroButton
           href="#about"

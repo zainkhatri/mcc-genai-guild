@@ -68,7 +68,7 @@ const Footer = () => {
     <FooterSection>
       <FooterContainer>
         <FooterColumn>
-          <h3>Islamic LLM Evaluation</h3>
+          <h3>Islamic GenAI Guild LLM Evaluation Project</h3>
           <p>
             A project dedicated to evaluating and enhancing AI language models through Islamic knowledge and ethical guidelines.
           </p>
@@ -82,8 +82,8 @@ const Footer = () => {
           <ul>
             <li><a href="#about">About the Project</a></li>
             <li><a href="#objectives">Our Objectives</a></li>
-            <li><a href="#evaluation">Evaluation Results</a></li>
             <li><a href="#models">Evaluated Models</a></li>
+            <li><a href="#evaluation">Evaluation Results</a></li>
             <li><a href="https://github.com/zainkhatri/mcc-genai-guild" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
           </ul>
         </FooterColumn>
@@ -100,7 +100,7 @@ const Footer = () => {
       </FooterContainer>
       
       <Copyright>
-        &copy; {new Date().getFullYear()} Islamic LLM Evaluation Project. All rights reserved.
+        &copy; 2025 Islamic GenAI Guild LLM Evaluation Project. All rights reserved.
       </Copyright>
     </FooterSection>
   );

@@ -122,7 +122,7 @@ const About = () => {
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              The <strong>Islamic LLM Evaluation Project</strong> is dedicated to benchmarking AI language models on their understanding of Islamic knowledge, ethical reasoning, and bias detection. Using the <code>lm-evaluation-harness</code>, we test models across structured Islamic Q&A, ethical scenarios, and source reliability.
+              The <strong>Islamic Gen AI Guild Evaluation Project</strong> is dedicated to benchmarking AI language models on their understanding of Islamic knowledge, ethical reasoning, and bias detection. Using the <code>lm-evaluation-harness</code>, we test models across structured Islamic Q&A, ethical scenarios, and source reliability.
             </motion.p>
             
             <motion.p

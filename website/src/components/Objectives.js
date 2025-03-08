@@ -176,7 +176,7 @@ const Objectives = () => {
         </ObjectivesGrid>
         
         <NavigationButton 
-          href="#evaluation"
+          href="#models"
           whileHover={{ y: -5 }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0 }}

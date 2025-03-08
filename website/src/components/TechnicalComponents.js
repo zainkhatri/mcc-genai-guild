@@ -94,9 +94,17 @@ const AgentDescription = styled(motion.div)`
 
 const AgentFeatures = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
+  
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const FeatureCard = styled(motion.div)`
@@ -104,6 +112,9 @@ const FeatureCard = styled(motion.div)`
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   
   h4 {
     color: var(--accent-color);
@@ -114,6 +125,7 @@ const FeatureCard = styled(motion.div)`
   p {
     font-size: 1rem;
     line-height: 1.6;
+    flex-grow: 1;
   }
 `;
 

@@ -143,8 +143,9 @@ const Header = () => {
   const navLinks = [
     { id: 'about', label: 'About' },
     { id: 'objectives', label: 'Objectives' },
+    { id: 'models', label: 'Models' },
     { id: 'evaluation', label: 'Evaluation' },
-    { id: 'models', label: 'Models' }
+    { id: 'ethics', label: 'Ethics' }
   ];
   
   const headerVariants = {

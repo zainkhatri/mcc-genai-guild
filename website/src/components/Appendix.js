@@ -142,46 +142,6 @@ const GlossaryContent = styled.div`
   }
 `;
 
-const ReferencesContent = styled.div`
-  .reference {
-    margin-bottom: 1.5rem;
-    padding-left: 2rem;
-    position: relative;
-    
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.5rem;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--accent-color);
-    }
-    
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-    }
-    
-    .authors {
-      font-weight: 600;
-    }
-    
-    .title {
-      font-style: italic;
-    }
-    
-    .publication {
-      color: var(--primary-color);
-    }
-    
-    .year {
-      font-weight: 500;
-    }
-  }
-`;
-
 const NavigationButton = styled(motion.a)`
   display: block;
   width: 50px;
@@ -246,14 +206,6 @@ const Appendix = () => {
             whileTap={{ scale: 0.95 }}
           >
             Glossary
-          </Tab>
-          <Tab 
-            active={activeTab === 'references'} 
-            onClick={() => setActiveTab('references')}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            References
           </Tab>
         </TabsContainer>
         
@@ -368,58 +320,6 @@ const Appendix = () => {
                 <p>An open-source framework for evaluating language models across various tasks and metrics, which we have adapted for Islamic knowledge evaluation.</p>
               </div>
             </GlossaryContent>
-          )}
-          
-          {activeTab === 'references' && (
-            <ReferencesContent>
-              <div className="reference">
-                <p>
-                  <span className="authors">Ahmad, F., & Khan, S. (2023).</span> <span className="title">Evaluating Large Language Models on Islamic Knowledge: Challenges and Opportunities.</span> <span className="publication">Journal of AI and Religious Studies,</span> <span className="year">15(3), 245-267.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Rahman, A., Ali, M., & Hassan, N. (2022).</span> <span className="title">Benchmarking AI Systems on Religious Knowledge: A Case Study of Islam.</span> <span className="publication">Proceedings of the International Conference on AI Ethics,</span> <span className="year">78-92.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Siddiqui, Z., & Omar, Y. (2023).</span> <span className="title">Islamic Ethical Frameworks for Artificial Intelligence: Principles and Applications.</span> <span className="publication">AI and Ethics Journal,</span> <span className="year">8(2), 112-135.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Abdullah, M., & Ibrahim, H. (2022).</span> <span className="title">Detecting and Mitigating Bias Against Islam in Large Language Models.</span> <span className="publication">Computational Linguistics and Religious Texts,</span> <span className="year">5(4), 301-325.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Khan, A., Ahmed, S., & Malik, F. (2023).</span> <span className="title">Source Reliability Assessment in Islamic Knowledge Representation by AI Systems.</span> <span className="publication">Journal of Religious Data Science,</span> <span className="year">7(1), 45-67.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Gururangan, S., Swayamdipta, S., Levy, O., Schwartz, R., Bowman, S., & Smith, N. A. (2018).</span> <span className="title">Annotation Artifacts in Natural Language Inference Data.</span> <span className="publication">Proceedings of NAACL-HLT 2018,</span> <span className="year">107-112.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019).</span> <span className="title">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.</span> <span className="publication">Proceedings of NAACL-HLT 2019,</span> <span className="year">4171-4186.</span>
-                </p>
-              </div>
-              
-              <div className="reference">
-                <p>
-                  <span className="authors">Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., ... & Amodei, D. (2020).</span> <span className="title">Language Models are Few-Shot Learners.</span> <span className="publication">Advances in Neural Information Processing Systems,</span> <span className="year">33, 1877-1901.</span>
-                </p>
-              </div>
-            </ReferencesContent>
           )}
         </ContentContainer>
         
