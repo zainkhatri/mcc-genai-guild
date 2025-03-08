@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
-  ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, 
-  PolarRadiusAxis, Radar, Cell, LabelList
+  ResponsiveContainer, Cell
 } from 'recharts';
 
 const EvaluationSection = styled.section`
@@ -63,163 +62,22 @@ const SectionSubtitle = styled(motion.p)`
 `;
 
 const ChartContainer = styled(motion.div)`
-  margin-top: 3rem;
-  height: 500px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  height: 600px;
   position: relative;
+  overflow: visible;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 93, 51, 0.1);
+  margin-top: 2rem;
   
-  &:before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-    z-index: -1;
-  }
-`;
-
-const TabsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-`;
-
-const Tab = styled(motion.button)`
-  padding: 0.8rem 1.5rem;
-  background-color: ${({ active }) => active ? 'var(--primary-color)' : 'transparent'};
-  color: ${({ active }) => active ? '#fff' : 'var(--primary-color)'};
-  border: 2px solid var(--primary-color);
-  border-radius: 4px;
-  margin: 0 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-medium);
-  position: relative;
-  overflow: hidden;
-  
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(-100%);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  &:hover {
-    background-color: ${({ active }) => active ? 'var(--primary-color)' : 'rgba(74, 102, 112, 0.1)'};
-    transform: translateY(-2px);
-    
-    &:after {
-      transform: translateX(100%);
-    }
-  }
-`;
-
-const ModelSelector = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-`;
-
-const ModelButton = styled(motion.button)`
-  padding: 0.5rem 1rem;
-  background-color: ${({ active, color }) => active ? color : 'transparent'};
-  color: ${({ active }) => active ? '#fff' : 'var(--text-color)'};
-  border: 1px solid ${({ color }) => color};
-  border-radius: 20px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  
-  &:hover {
-    background-color: ${({ active, color }) => active ? color : `${color}33`};
-    transform: translateY(-2px);
-  }
-`;
-
-const CustomTooltip = styled.div`
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  
-  .label {
-    font-family: var(--title-font);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
-    font-size: 1.1rem;
-  }
-  
-  .value {
-    color: var(--accent-color);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.3rem;
-    
-    &:before {
-      content: '';
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-right: 8px;
-      background-color: currentColor;
-    }
-  }
-`;
-
-const GradeIndicator = styled(motion.div)`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: ${({ grade }) => {
-    if (grade === 'A+') return '#4CAF50';
-    if (grade === 'A') return '#8BC34A';
-    if (grade === 'C+') return '#FFC107';
-    return '#F44336';
-  }};
-  color: white;
-  font-weight: 700;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-`;
-
-const NavigationButton = styled(motion.a)`
-  display: block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 3rem auto 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 1.5rem;
-  
-  &:hover {
-    background-color: var(--accent-color);
-  }
+  /* Add a subtle grid pattern to the background */
+  background-image: 
+    linear-gradient(rgba(139, 93, 51, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 93, 51, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 `;
 
 const CategorySelector = styled.div`
@@ -252,34 +110,99 @@ const ChartTitle = styled.h3`
   color: var(--primary-color);
 `;
 
+const CustomTooltip = styled.div`
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(139, 93, 51, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  
+  .label {
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .value {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+`;
+
+const NavigationButton = styled(motion.a)`
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem auto 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1.5rem;
+  
+  &:hover {
+    background-color: var(--accent-color);
+  }
+`;
+
+const ModelGroupTitle = styled(motion.div)`
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  
+  span {
+    display: inline-block;
+    margin: 0 0.3rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+`;
+
 const Evaluation = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
+  const { ref, inView } = useInView({
     threshold: 0.1,
+    triggerOnce: false
   });
   
-  const [activeTab, setActiveTab] = useState('bar');
-  const [selectedModels, setSelectedModels] = useState([
-    'GPT-4o', 
-    'Claude 3.5 - Sonnet', 
-    'Claude 3.7 - Sonnet', 
-    'Gemini 2.0 - Flash'
-  ]);
-  const [hoveredModel, setHoveredModel] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   
-  // Vibrant colors for each model
+  // Update the modelColors to use colors that match the website's aesthetic
   const modelColors = {
-    'GPT-4o': '#FF5252',                  // Vibrant Red
-    'GPT-4.5 Preview': '#FF7043',         // Deep Orange
-    'Claude 3.5 - Sonnet': '#536DFE',     // Indigo
-    'Claude 3.7 - Sonnet': '#448AFF',     // Blue
-    'Claude 3.5 - Opus': '#40C4FF',       // Light Blue
-    'Claude 3 - Opus': '#18FFFF',         // Cyan
-    'Gemini 2.0 - Flash': '#69F0AE',      // Green
-    'Gemini Flash - 1.5': '#B2FF59',      // Light Green
-    'GPT-4 Turbo': '#FFFF00'              // Yellow
+    'GPT-4o': '#8b5d33',                  // Primary brown from the website
+    'GPT-4.5 Preview': '#a06e44',         // Lighter brown
+    'Claude 3.5 - Sonnet': '#4a6670',     // Primary blue-gray from the website
+    'Claude 3.7 - Sonnet': '#5a7680',     // Lighter blue-gray
+    'Claude 3.5 - Opus': '#6a8690',       // Even lighter blue-gray
+    'Claude 3 - Opus': '#7a96a0',         // Lightest blue-gray
+    'Gemini 2.0 - Flash': '#b07d4a',      // Warm gold
+    'Gemini Flash - 1.5': '#c99c6e',      // Light gold
+    'GPT-4 Turbo': '#d4b28c'              // Cream accent
   };
+  
+  // Use useMemo to prevent the modelGroups array from changing on every render
+  const modelGroups = React.useMemo(() => [
+    // Group 1: Top performers
+    ['GPT-4o', 'Claude 3.5 - Sonnet', 'Claude 3.7 - Sonnet', 'GPT-4.5 Preview'],
+    // Group 2: Strong performers
+    ['Claude 3.5 - Opus', 'Claude 3 - Opus', 'Gemini 2.0 - Flash', 'GPT-4 Turbo'],
+    // Group 3: Mixed performance
+    ['GPT-4o', 'Claude 3.5 - Sonnet', 'Gemini 2.0 - Flash', 'Gemini Flash - 1.5'],
+    // Group 4: Compare OpenAI models
+    ['GPT-4o', 'GPT-4.5 Preview', 'GPT-4 Turbo', 'Claude 3.5 - Sonnet']
+  ], []);
+  
+  // State for currently displayed models
+  const [selectedModels, setSelectedModels] = useState(modelGroups[0]);
+  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   
   // Data from the evaluation results image
   const evaluationData = [
@@ -366,9 +289,17 @@ const Evaluation = () => {
     }
   ];
   
-  const filteredData = evaluationData.filter(model => 
-    selectedModels.includes(model.name)
-  );
+  // Update the useEffect to prevent shuffling
+  useEffect(() => {
+    // Remove the shuffling interval to keep colors consistent
+    // This will make the chart display only the first group of models
+    if (!inView) return;
+    
+    // Set to the first group and don't change
+    setCurrentGroupIndex(0);
+    setSelectedModels(modelGroups[0]);
+    
+  }, [inView, modelGroups]);
   
   // Prepare data for the bar chart
   const prepareBarChartData = () => {
@@ -377,412 +308,238 @@ const Evaluation = () => {
       return [
         {
           name: 'Knowledge',
-          ...filteredData.reduce((acc, model) => {
-            acc[model.name] = model.knowledge;
+          ...selectedModels.reduce((acc, modelName) => {
+            const model = evaluationData.find(m => m.name === modelName);
+            acc[modelName] = model.knowledge;
             return acc;
           }, {})
         },
         {
           name: 'Ethics',
-          ...filteredData.reduce((acc, model) => {
-            acc[model.name] = model.ethics;
+          ...selectedModels.reduce((acc, modelName) => {
+            const model = evaluationData.find(m => m.name === modelName);
+            acc[modelName] = model.ethics;
             return acc;
           }, {})
         },
         {
           name: 'Bias',
-          ...filteredData.reduce((acc, model) => {
-            acc[model.name] = model.bias;
+          ...selectedModels.reduce((acc, modelName) => {
+            const model = evaluationData.find(m => m.name === modelName);
+            acc[modelName] = model.bias;
             return acc;
           }, {})
         },
         {
           name: 'Source',
-          ...filteredData.reduce((acc, model) => {
-            acc[model.name] = model.source;
+          ...selectedModels.reduce((acc, modelName) => {
+            const model = evaluationData.find(m => m.name === modelName);
+            acc[modelName] = model.source;
             return acc;
           }, {})
         }
       ];
     } else {
       // For a single category, return data for that category only
-      return filteredData.map(model => ({
-        name: model.name,
-        value: model[activeCategory],
-        color: model.color
+      return selectedModels.map(modelName => ({
+        name: modelName,
+        value: evaluationData.find(m => m.name === modelName)[activeCategory],
+        color: modelColors[modelName]
       }));
     }
   };
   
   const barChartData = prepareBarChartData();
   
-  const toggleModel = (modelName) => {
-    if (selectedModels.includes(modelName)) {
-      if (selectedModels.length > 1) {
-        setSelectedModels(selectedModels.filter(name => name !== modelName));
-      }
-    } else {
-      setSelectedModels([...selectedModels, modelName]);
-    }
-  };
-  
-  const renderCustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      if (activeCategory === 'all') {
-        return (
-          <CustomTooltip>
-            <p className="label">{label}</p>
-            {payload.map((entry, index) => (
-              <p key={index} className="value" style={{ color: entry.color }}>
-                {`${entry.name}: ${entry.value}%`}
-              </p>
-            ))}
-          </CustomTooltip>
-        );
-      } else {
-        const model = evaluationData.find(m => m.name === label);
-        return (
-          <CustomTooltip>
-            <p className="label">{label} <span style={{ fontSize: '0.8rem' }}>({model.grade})</span></p>
-            <p className="value" style={{ color: model.color }}>
-              {`${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}: ${payload[0].value}%`}
-            </p>
-          </CustomTooltip>
-        );
-      }
-    }
-    return null;
-  };
-  
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        duration: 0.5,
-        staggerChildren: 0.1
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-  
   const chartVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
+    hidden: { 
+      opacity: 0,
+      scale: 0.95,
+      transition: { 
+        duration: 0.3,
+        ease: [0.43, 0.13, 0.23, 0.96]
+      }
+    },
     visible: { 
       opacity: 1, 
       scale: 1,
       transition: { 
-        duration: 0.8, 
-        ease: [0.16, 1, 0.3, 1],
-        delay: 0.3
+        duration: 0.5,
+        ease: [0.43, 0.13, 0.23, 0.96]
       }
     }
   };
+  
+  // Update the renderCustomTooltip function
+  const renderCustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <CustomTooltip>
+          <p className="label">{label}</p>
+          {payload.map((entry, index) => (
+            <p key={index} className="value" style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value.toFixed(2)}%`}
+            </p>
+          ))}
+        </CustomTooltip>
+      );
+    }
+    return null;
+  };
+  
+  // Add the filteredData definition
+  const filteredData = selectedModels.map(modelName => 
+    evaluationData.find(model => model.name === modelName)
+  );
   
   return (
     <EvaluationSection id="evaluation" ref={ref}>
       <BackgroundPattern />
       <EvaluationContainer>
         <SectionTitle
-          variants={itemVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           Evaluation Results
         </SectionTitle>
         
         <SectionSubtitle
-          variants={itemVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          Compare how different AI models perform on Islamic knowledge, ethics, bias detection, and source reliability
+          Comprehensive analysis of leading AI models based on knowledge, ethics, bias, and source attribution.
         </SectionSubtitle>
         
-        <ModelSelector
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+        <ModelGroupTitle
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
-          {evaluationData.map((model) => (
-            <ModelButton
-              key={model.name}
-              active={selectedModels.includes(model.name)}
-              onClick={() => toggleModel(model.name)}
-              variants={itemVariants}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.95 }}
-              onMouseEnter={() => setHoveredModel(model.name)}
-              onMouseLeave={() => setHoveredModel(null)}
-              color={model.color}
-            >
-              {model.name}
-              {hoveredModel === model.name && (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  style={{ 
-                    marginLeft: '5px',
-                    display: 'inline-block',
-                    padding: '0 5px',
-                    borderRadius: '50%',
-                    backgroundColor: selectedModels.includes(model.name) ? 'rgba(255, 255, 255, 0.3)' : `${model.color}33`,
-                    fontSize: '0.8rem'
-                  }}
-                >
-                  {model.grade}
-                </motion.span>
-              )}
-            </ModelButton>
-          ))}
-        </ModelSelector>
-        
-        <TabsContainer>
-          <Tab 
-            active={activeTab === 'bar'} 
-            onClick={() => setActiveTab('bar')}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            variants={itemVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
-            Bar Chart
-          </Tab>
-          <Tab 
-            active={activeTab === 'radar'} 
-            onClick={() => setActiveTab('radar')}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            variants={itemVariants}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-          >
-            Radar Chart
-          </Tab>
-        </TabsContainer>
-        
-        {activeTab === 'bar' && (
-          <CategorySelector>
-            <CategoryButton 
-              active={activeCategory === 'all'} 
-              onClick={() => setActiveCategory('all')}
-            >
-              All Categories
-            </CategoryButton>
-            <CategoryButton 
-              active={activeCategory === 'knowledge'} 
-              onClick={() => setActiveCategory('knowledge')}
-            >
-              Knowledge
-            </CategoryButton>
-            <CategoryButton 
-              active={activeCategory === 'ethics'} 
-              onClick={() => setActiveCategory('ethics')}
-            >
-              Ethics
-            </CategoryButton>
-            <CategoryButton 
-              active={activeCategory === 'bias'} 
-              onClick={() => setActiveCategory('bias')}
-            >
-              Bias
-            </CategoryButton>
-            <CategoryButton 
-              active={activeCategory === 'source'} 
-              onClick={() => setActiveCategory('source')}
-            >
-              Source
-            </CategoryButton>
-          </CategorySelector>
-        )}
+          Comparing: {selectedModels.join(', ')}
+        </ModelGroupTitle>
         
         <AnimatePresence mode="wait">
           <ChartContainer
-            key={activeTab + activeCategory}
+            key={activeCategory + currentGroupIndex}
             variants={chartVariants}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+            animate="visible"
+            exit="hidden"
           >
-            {activeTab === 'bar' ? (
-              <>
-                <ChartTitle>
-                  {activeCategory === 'all' 
-                    ? 'Model Performance Across All Categories' 
-                    : `Model Performance: ${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}`}
-                </ChartTitle>
-                <ResponsiveContainer width="100%" height="90%">
-                  {activeCategory === 'all' ? (
-                    <BarChart
-                      data={barChartData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-                      barGap={2}
-                      barCategoryGap={10}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
-                      <XAxis 
-                        dataKey="name" 
-                        tick={{ fontSize: 12, fill: 'var(--text-color)' }}
-                        tickLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                        axisLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                      />
-                      <YAxis 
-                        domain={[0, 100]} 
-                        label={{ 
-                          value: 'Score (%)', 
-                          angle: -90, 
-                          position: 'insideLeft',
-                          style: { textAnchor: 'middle', fill: 'var(--text-color)' }
-                        }} 
-                        tick={{ fill: 'var(--text-color)' }}
-                        tickLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                        axisLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                      />
-                      <Tooltip content={renderCustomTooltip} />
-                      <Legend 
-                        wrapperStyle={{ paddingTop: '20px' }}
-                        formatter={(value) => (
-                          <span style={{ 
-                            color: modelColors[value] || 'var(--text-color)', 
-                            fontWeight: 500 
-                          }}>
-                            {value}
-                          </span>
-                        )}
-                      />
-                      {filteredData.map((model) => (
-                        <Bar 
-                          key={model.name} 
-                          dataKey={model.name} 
-                          fill={model.color} 
-                          name={model.name}
-                          fillOpacity={hoveredModel === model.name ? 1 : 0.8}
-                        />
-                      ))}
-                    </BarChart>
-                  ) : (
-                    <BarChart
-                      data={barChartData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 70 }}
-                      barSize={40}
-                      layout="horizontal"
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={true} />
-                      <XAxis 
-                        dataKey="name" 
-                        angle={-45} 
-                        textAnchor="end" 
-                        height={80} 
-                        tick={{ fontSize: 12, fill: 'var(--text-color)' }}
-                        tickLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                        axisLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                      />
-                      <YAxis 
-                        domain={[0, 100]} 
-                        label={{ 
-                          value: 'Score (%)', 
-                          angle: -90, 
-                          position: 'insideLeft',
-                          style: { textAnchor: 'middle', fill: 'var(--text-color)' }
-                        }} 
-                        tick={{ fill: 'var(--text-color)' }}
-                        tickLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                        axisLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                      />
-                      <Tooltip content={renderCustomTooltip} />
-                      <Bar 
-                        dataKey="value" 
-                        name={activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
-                      >
-                        <LabelList dataKey="value" position="top" formatter={(value) => `${value}%`} />
-                        {barChartData.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={entry.color}
-                            fillOpacity={hoveredModel === entry.name ? 1 : 0.8}
-                          />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  )}
-                </ResponsiveContainer>
-              </>
-            ) : (
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart outerRadius={180} data={filteredData}>
-                  <PolarGrid stroke="rgba(0,0,0,0.05)" />
-                  <PolarAngleAxis 
+            <CategorySelector>
+              <CategoryButton 
+                active={activeCategory === 'all'} 
+                onClick={() => setActiveCategory('all')}
+              >
+                All Categories
+              </CategoryButton>
+              <CategoryButton 
+                active={activeCategory === 'knowledge'} 
+                onClick={() => setActiveCategory('knowledge')}
+              >
+                Knowledge
+              </CategoryButton>
+              <CategoryButton 
+                active={activeCategory === 'ethics'} 
+                onClick={() => setActiveCategory('ethics')}
+              >
+                Ethics
+              </CategoryButton>
+              <CategoryButton 
+                active={activeCategory === 'bias'} 
+                onClick={() => setActiveCategory('bias')}
+              >
+                Bias
+              </CategoryButton>
+              <CategoryButton 
+                active={activeCategory === 'source'} 
+                onClick={() => setActiveCategory('source')}
+              >
+                Source
+              </CategoryButton>
+            </CategorySelector>
+            
+            <ChartTitle>
+              {activeCategory === 'all' 
+                ? 'Performance Across All Categories' 
+                : `Performance in ${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}`}
+            </ChartTitle>
+            
+            <ResponsiveContainer width="100%" height="80%">
+              {activeCategory === 'all' ? (
+                <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 93, 51, 0.1)" />
+                  <XAxis 
                     dataKey="name" 
-                    tick={{ fontSize: 12, fill: 'var(--text-color)' }}
+                    tick={{ fill: 'var(--text-color)' }}
+                    axisLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
                   />
-                  <PolarRadiusAxis 
+                  <YAxis 
                     domain={[0, 100]} 
                     tick={{ fill: 'var(--text-color)' }}
-                    axisLine={{ stroke: 'rgba(0,0,0,0.05)' }}
-                    tickLine={{ stroke: 'rgba(0,0,0,0.05)' }}
+                    axisLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
+                    tickLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
                   />
                   <Tooltip content={renderCustomTooltip} />
-                  {filteredData.map((model) => (
-                    <Radar 
-                      key={model.name}
-                      name={model.name} 
-                      dataKey={(entry) => (
-                        (entry.knowledge + entry.ethics + entry.bias + entry.source) / 4
-                      )}
-                      stroke={model.color} 
-                      fill={model.color} 
-                      fillOpacity={0.5} 
-                    />
-                  ))}
-                  <Legend 
-                    wrapperStyle={{ paddingTop: '20px' }}
-                    formatter={(value) => {
-                      const model = evaluationData.find(m => m.name === value);
-                      return (
-                        <span style={{ 
-                          color: model ? model.color : 'var(--text-color)', 
-                          fontWeight: 500 
-                        }}>
-                          {value}
-                        </span>
-                      );
-                    }}
+                  <Legend />
+                  {selectedModels.map((modelName, index) => {
+                    const model = evaluationData.find(m => m.name === modelName);
+                    return (
+                      <Bar 
+                        key={modelName} 
+                        dataKey={modelName} 
+                        fill={model.color}
+                        radius={[4, 4, 0, 0]}
+                      />
+                    );
+                  })}
+                </BarChart>
+              ) : (
+                <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 93, 51, 0.1)" />
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fill: 'var(--text-color)' }}
+                    axisLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
                   />
-                </RadarChart>
-              </ResponsiveContainer>
-            )}
-            
-            {filteredData.length === 1 && (
-              <GradeIndicator
-                grade={filteredData[0].grade}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.3 }}
-              >
-                {filteredData[0].grade}
-              </GradeIndicator>
-            )}
+                  <YAxis 
+                    domain={[0, 100]} 
+                    tick={{ fill: 'var(--text-color)' }}
+                    axisLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
+                    tickLine={{ stroke: 'rgba(139, 93, 51, 0.3)' }}
+                  />
+                  <Tooltip content={renderCustomTooltip} />
+                  <Bar 
+                    dataKey="value" 
+                    radius={[4, 4, 0, 0]}
+                  >
+                    {barChartData.map((entry, index) => {
+                      const model = evaluationData.find(m => m.name === entry.name);
+                      return (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={model ? model.color : '#ccc'}
+                        />
+                      );
+                    })}
+                  </Bar>
+                </BarChart>
+              )}
+            </ResponsiveContainer>
           </ChartContainer>
         </AnimatePresence>
         
         <NavigationButton 
-          href="#models"
+          href="#technical"
           whileHover={{ y: -5 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.7 }}
+          whileTap={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         >
-          ↓
+          Explore Technical Details
         </NavigationButton>
       </EvaluationContainer>
     </EvaluationSection>
